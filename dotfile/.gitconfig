@@ -1,0 +1,16 @@
+[user]
+	name = klkyy2018
+	email = fei.long@transwarp.io
+[core]
+	editor = vim
+	autocrlf = false
+[color]
+	ui = true
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	last = log -1 HEAD
+[push]
+	default = simple
