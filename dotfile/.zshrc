@@ -106,9 +106,6 @@ export EDITOR=vim
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
-alias ..="cd .."
-alias ...="cd ../.."
-MY_BIN=$HOME/bin
 REPO_DEV=$HOME/code/repo
 JAVA_DEV=$HOME/code/java
 CPP_DEV=$HOME/code/cpp
@@ -173,3 +170,5 @@ _tmuxinator() {
 
 compdef _tmuxinator tmuxinator mux
 alias mux="tmuxinator"
+
+
