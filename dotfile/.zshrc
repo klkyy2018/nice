@@ -65,7 +65,6 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   docker
-  x
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -103,14 +102,15 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 ## user's sys config
 #######################################################################
 export EDITOR=vim
+export DEV_HOME=$HOME/mydev
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
-REPO_DEV=$HOME/code/repo
-JAVA_DEV=$HOME/code/java
-CPP_DEV=$HOME/code/cpp
-GO_DEV=$HOME/code/go
-PY_DEV=$HOME/code/python
+REPO_DEV=$DEV_HOME/repo
+JAVA_DEV=$DEV_HOME/java
+CPP_DEV=$DEV_HOME/cpp
+GO_DEV=$DEV_HOME/go
+PY_DEV=$DEV_HOME/python
 
 ######################################################################
 ## user's software config
@@ -133,7 +133,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 # go
 export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/code/go
+export GOPATH=$DEV_HOME/go
 export GODEBUG=netdns=go
 
 # KunDB
