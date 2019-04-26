@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -65,6 +65,7 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   docker
+  docker-compose
   x
 )
 
@@ -106,11 +107,16 @@ export EDITOR=vim
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
-REPO_DEV=$HOME/code/repo
-JAVA_DEV=$HOME/code/java
-CPP_DEV=$HOME/code/cpp
-GO_DEV=$HOME/code/go
-PY_DEV=$HOME/code/python
+export REPO_DEV=$HOME/code/repo
+export JAVA_DEV=$HOME/code/java
+export CPP_DEV=$HOME/code/cpp
+export GO_DEV=$HOME/code/go
+export PY_DEV=$HOME/code/python
+alias cdrepo="cd $REPO_DEV"
+alias cdjava="cd $JAVA_DEV"
+alias cdcpp="cd $CPP_DEV"
+alias cdgo="cd $GO_DEV"
+alias cdpy="cd $PY_DEV"
 
 ######################################################################
 ## user's software config
@@ -140,8 +146,16 @@ export GODEBUG=netdns=go
 export MYSQL_FLAVOR="MySQL56"
 export VT_MYSQL_ROOT="/usr/local/mysql57"
 export kunDataRoot="$GOPATH/vtdataroot"
-alias cdk="[ -e $GOPATH/src/github.com/youtube/vitess ] && cd $GOPATH/src/github.com/youtube/vitess || echo "no kundb src directory""
-alias cddt="[ -e $GOPATH/vtdataroot ] && cd $GOPATH/vtdataroot || echo "no kundb data directory""
+export kunHome="$GOPATH/src/github.com/youtube/vitess"
+alias cdk="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
+alias cddt="[ -d $kunDataRoot ] && cd $kunDataRoot || echo 'no kundb data directory'"
+
+# charts
+export kunChartsHome="$REPO_DEV/application-helmcharts/kundb/1.1"
+alias charts="[ -d $kunChartsHome ] && cd $KunChartsHome || echo 'no charts directory'"
+
+# tmp
+alias sshgreat="ssh greatwall@172.16.7.18"
 
 #rvm
 export PATH=$PATH:$HOME/.rvm/bin

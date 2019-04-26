@@ -12,5 +12,10 @@
 	ci = commit
 	st = status
 	last = log -1 HEAD
+	supdate = submodule update --remote --merge
+	sdiff = !git diff && git submodule foreach 'git diff'
+	spush = push --recurse-submodules=on-demand
 [push]
 	default = simple
+[diff]
+	submodule = log
