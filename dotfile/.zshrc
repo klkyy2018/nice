@@ -104,14 +104,16 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 ## user's sys config
 #######################################################################
 export EDITOR=vim
+export DEV_HOME=$HOME/mydev
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
-export REPO_DEV=$HOME/code/repo
-export JAVA_DEV=$HOME/code/java
-export CPP_DEV=$HOME/code/cpp
-export GO_DEV=$HOME/code/go
-export PY_DEV=$HOME/code/python
+
+REPO_DEV=$DEV_HOME/repo
+JAVA_DEV=$DEV_HOME/java
+CPP_DEV=$DEV_HOME/cpp
+GO_DEV=$DEV_HOME/go
+PY_DEV=$DEV_HOME/python
 alias cdrepo="cd $REPO_DEV"
 alias cdjava="cd $JAVA_DEV"
 alias cdcpp="cd $CPP_DEV"
@@ -139,7 +141,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 # go
 export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/code/go
+export GOPATH=$DEV_HOME/go
 export GODEBUG=netdns=go
 
 # KunDB

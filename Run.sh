@@ -1,11 +1,12 @@
 #!/bin/bash
 password="9102"
 MY_BIN=$HOME/bin
-REPO_DEV=$HOME/code/repo
-JAVA_DEV=$HOME/code/java
-CPP_DEV=$HOME/code/cpp
-GO_DEV=$HOME/code/go
-PY_DEV=$HOME/code/python
+DEV_HOME=$HOME/mydev
+REPO_DEV=$DEV_HOME/repo
+JAVA_DEV=$DEV_HOME/java
+CPP_DEV=$DEV_HOME/cpp
+GO_DEV=$DEV_HOME/go
+PY_DEV=$DEV_HOME/python
 
 function mk_code_dir {
     mkdir -p $REPO_DEV
