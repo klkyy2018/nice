@@ -1,12 +1,18 @@
 #!/bin/bash
-password="9102"
+
 MY_BIN=$HOME/bin
+USR_BIN=/usr/local/my
 DEV_HOME=$HOME/mydev
 REPO_DEV=$DEV_HOME/repo
 JAVA_DEV=$DEV_HOME/java
 CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
+read -t 10 -p "please enter your root password: " password
+if [ -z $password ];then
+  echo "timeout! please rerun this script..."
+  exit 1
+fi
 
 function mk_code_dir {
     mkdir -p $REPO_DEV
@@ -15,14 +21,24 @@ function mk_code_dir {
     mkdir -p $GO_DEV
     mkdir -p $PY_DEV
     mkdir -p $MY_BIN
+    echo $password | sudo -S mkdir -p $USR_BIN
 }
 
 function install_zsh {
+  if [ ! $(which zsh) ]; then
     echo $password | sudo -S yum install -y zsh
+  else
+    echo "zsh has been installed."
+  fi
+  if [ ! -d ~/.oh-my-zsh ];then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  else
+    echo "oh-my-zsh has been installed."
+  fi
 }
 
 function install_tmux {
+  if [ ! -d ~/.tmux ]; then
     echo $password | sudo -S yum install -y ncurses-devel libevent libevent-devel make
     cd $REPO_DEV
     git clone https://github.com/tmux/tmux.git
@@ -33,31 +49,58 @@ function install_tmux {
     cd
     git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
-    cp .tmux/.tmux.conf.local .
+  else
+    echo "tmux has been installed."
+  fi
+}
+
+function file_exists {
+  file=$1
+  [ -f $file ] && return 1 || return 0
+}
+
+path=$HOME/Downloads
+function install_tar {
+  file_name=$1
+  file=$path/$file_name
+  file_exists $file
+  if [ $? -eq 1 ];then
+    echo $password | sudo -S tar xzf $file -C /usr/local/my
+  else
+    echo "$file not exists, skip install it."
+  fi
+}
+
+function install_rpm {
+  rpm_file=$1 
+  file=$path/$rpm_file
+  file_exists $file
+  if [ $? -eq 1 ];then
+    echo $password | sudo -S rpm -ivh $file
+    return 1
+  else
+    echo "$file not exists, skip install it."
+    return 0
+  fi
 }
 
 function install_jdk {
-    cp $HOME/Downloads/jdk-8u201-linux-x64.tar.gz /tmp
-    cd /tmp && tar xzf jdk-8u201-linux-x64.tar.gz 
-    echo $password | sudo -S mv jdk1.8.0_201 /usr/local
+  install_tar jdk-8u201-linux-x64.tar.gz
 }
 
 function install_mvn {
-    cp $HOME/Downloads/apache-maven-3.6.0-bin.tar.gz /tmp
-    cd /tmp && tar xzf apache-maven-3.6.0-bin.tar.gz
-    echo $password | sudo -S mv apache-maven-3.6.0 /usr/local
+  install_tar apache-maven-3.6.0-bin.tar.gz
 }
 
 function install_go {
-    cp $HOME/Downloads/go1.12.linux-amd64.tar.gz /tmp
-    cd /tmp && tar xzf go1.12.linux-amd64.tar.gz
-    echo $password | sudo -S mv go /usr/local
+  install_tar go1.11.linux-amd64.tar.gz
 }
 
 function install_docker {
-    cd $HOME/Downloads/
-    echo $password | sudo -S rpm -ivh docker-ce-18.06.3.ce-3.el7.x86_64.rpm
-    echo $password | sudo -S usermod -aG docker ${USER}
+    install_rpm docker-ce-18.06.3.ce-3.el7.x86_64.rpm
+    if [ $? -eq 1 ];then
+      echo $password | sudo -S usermod -aG docker ${USER}
+    fi
 }
 
 function ln_dotfile {
@@ -74,13 +117,11 @@ function ln_vpn {
     ln -sf $REPO_DEV/nice/vpn/vpn.sh 
 }
 
-
 function new_centos {
     install_zsh
     install_tmux
-    ln_dotfile
-    ln_vpn
     install_jdk
+    install_mvn
     install_go
     install_docker
 }
@@ -91,4 +132,17 @@ function config_centos {
 }
 
 mk_code_dir
+
+read -n 1 -t 10 -p "Is this a new Centos?[Y/N] " newcentos
+echo ""
+case $newcentos in
+Y|y)
+  new_centos
+  ;;
+*)
+  echo "this centos will be treated as configed centos."
+  echo "rerun this script if this is a new centos!"
+  ;;
+esac
+
 config_centos

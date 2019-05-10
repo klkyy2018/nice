@@ -66,7 +66,6 @@ plugins=(
   git
   docker
   docker-compose
-  x
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -114,6 +113,7 @@ JAVA_DEV=$DEV_HOME/java
 CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
+USR_BIN=/usr/local/bin
 alias cdrepo="cd $REPO_DEV"
 alias cdjava="cd $JAVA_DEV"
 alias cdcpp="cd $CPP_DEV"
@@ -130,23 +130,24 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$GRPC_HOME/lib/pkgconfig:$PB_HOME/lib/pk
 export PATH=$PATH:$GRPC_HOME/bin:$PB_HOME/bin
 
 # maven
-export MAVEN_HOME=/usr/local/apache-maven-3.6.0
+export MAVEN_HOME=$USR_BIN/apache-maven-3.6.0
 export PATH=$MAVEN_HOME/bin:$PATH
 
 # java
-export JAVA_HOME=/usr/local/jdk1.8.0_201
+export JAVA_HOME=$USR_BIN/jdk1.8.0_201
 export JRE_HOME=$JAVA_HOME/jre
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 export PATH=$JAVA_HOME/bin:$PATH
 
 # go
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$USR_BIN/go/bin
 export GOPATH=$DEV_HOME/go
+export GOROOT=$USR_BIN/go
 export GODEBUG=netdns=go
 
 # KunDB
 export MYSQL_FLAVOR="MySQL56"
-export VT_MYSQL_ROOT="/usr/local/mysql57"
+export VT_MYSQL_ROOT="$USR_BIN/mysql57"
 export kunDataRoot="$GOPATH/vtdataroot"
 export kunHome="$GOPATH/src/github.com/youtube/vitess"
 alias cdk="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
