@@ -107,7 +107,7 @@ export DEV_HOME=$HOME/mydev
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
-unset SSH_ASKPASS
+#unset SSH_ASKPASS
 
 REPO_DEV=$DEV_HOME/repo
 JAVA_DEV=$DEV_HOME/java

@@ -7,20 +7,20 @@ JAVA_DEV=$DEV_HOME/java
 CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
-read -t 10 -p "please enter your sudo password: " password
+read -t 10 -p "[sudo] password for $USER: " password
 if [ -z $password ];then
   echo "timeout! please rerun this script..."
   exit 1
 fi
 
 function mk_code_dir {
-    mkdir -p $REPO_DEV
-    mkdir -p $JAVA_DEV
-    mkdir -p $CPP_DEV
-    mkdir -p $GO_DEV
-    mkdir -p $PY_DEV
-    mkdir -p $MY_BIN
-    echo $password | sudo -S mkdir -p $USR_BIN
+  mkdir -p $REPO_DEV
+  mkdir -p $JAVA_DEV
+  mkdir -p $CPP_DEV
+  mkdir -p $GO_DEV
+  mkdir -p $PY_DEV
+  mkdir -p $MY_BIN
+  echo $password | sudo -S mkdir -p $USR_BIN
 }
 
 function install_zsh {
@@ -29,7 +29,7 @@ function install_zsh {
   else
     echo "zsh has been installed."
   fi
-  if [ ! -d ~/.oh-my-zsh ];then
+  if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   else
     echo "oh-my-zsh has been installed."
@@ -54,20 +54,20 @@ function install_tmux {
 }
 
 function file_exists {
-  file=$1
-  [ -f $file ] && return 1 || return 0
+  [ -f $1 ] && return 1 || return 0
 }
 
 path=$HOME/Downloads
 function install_package {
   file_type=$1
   file_name=$2
+  echo "will install $file_name'...'"
   file=$path/$file_name
   install_flag="."$file_name"_installed"
   file_exists $file
   if [ $? -eq 1 ];then
     case $file_type in
-		tar)
+    tar)
       if [ -f $USR_BIN/$install_flag ];then
         echo "$file has been installed."
       else
@@ -78,10 +78,10 @@ function install_package {
     rpm)
       echo $password | sudo -S yum install -y $file
       ;;
-		*)
-		  echo "not support type!($file_type)"
-			;;
-		esac
+    *)
+      echo "not support type!($file_type)"
+      ;;
+    esac
     return 1
   else
     echo "$file not exists, skip install it."
@@ -101,38 +101,73 @@ function install_go {
   install_package tar go1.11.linux-amd64.tar.gz
 }
 
+function install_clion {
+  install_package tar CLion-2019.1.3.tar.gz
+}
+
+function install_intelij {
+  install_package tar ideaIC-2019.1.2.tar.gz
+}
+
+function install_goland {
+  install_package tar goland-2019.1.1.tar.gz
+}
+
+function install_pycharm {
+  install_package tar pycharm-community-2019.1.2.tar.gz
+}
+
+function rpm_installed {
+  [ -z "$(which $1)" ] && return 0 || return 1
+}
+
 function install_docker {
-    if [ -z "$(`which docker`)" ]; then
-      install_package rpm docker-ce-18.06.3.ce-3.el7.x86_64.rpm
-			if [ $? -eq 1 ];then
-				echo $password | sudo -S usermod -aG docker ${USER}
-			fi
-		else 
-		  echo "docker has been installed"
-	  fi
+  rpm_installed docker
+  if [ $? -eq 0 ]; then
+    install_package rpm docker-ce-18.06.3.ce-3.el7.x86_64.rpm
+    if [ $? -eq 1 ];then
+      echo $password | sudo -S usermod -aG docker ${USER}
+    fi
+  else 
+    echo "docker has been installed"
+  fi
+}
+
+function install_chrome {
+  rpm_installed google-chrome
+  if [ $? -eq 0 ]; then
+    install_package rpm google-chrome-stable_current_x86_64.rpm
+  else
+    echo "google-chrome has been installed"
+  fi
 }
 
 function ln_dotfile {
-    cd 
-    ln -sf $REPO_DEV/nice/dotfile/.zshrc
-    ln -sf $REPO_DEV/nice/dotfile/.vimrc
-    ln -sf $REPO_DEV/nice/dotfile/.gitconfig
-    ln -sf $REPO_DEV/nice/dotfile/.tmux.conf.local
+  cd 
+  ln -sf $REPO_DEV/nice/dotfile/.zshrc
+  ln -sf $REPO_DEV/nice/dotfile/.vimrc
+  ln -sf $REPO_DEV/nice/dotfile/.gitconfig
+  ln -sf $REPO_DEV/nice/dotfile/.tmux.conf.local
 }
 
 function ln_vpn {
-    cd $MY_BIN
-    ln -sf $REPO_DEV/nice/vpn/create_vpn.sh
-    ln -sf $REPO_DEV/nice/vpn/vpn.sh 
+  cd $MY_BIN
+  ln -sf $REPO_DEV/nice/vpn/create_vpn.sh
+  ln -sf $REPO_DEV/nice/vpn/vpn.sh 
 }
 
 function new_centos {
-    install_zsh
-    install_tmux
-    install_jdk
-    install_mvn
-    install_go
-    install_docker
+  install_zsh
+  install_tmux
+  install_jdk
+  install_mvn
+  install_go
+  install_docker
+  install_clion
+  install_intelij
+  install_goland
+  install_pycharm
+  install_chrome
 }
 
 function config_centos {
@@ -140,18 +175,20 @@ function config_centos {
   ln_vpn
 }
 
-mk_code_dir
+function main {
+  mk_code_dir
+  read -n 1 -t 10 -p "Is this a new Centos?[Y/N] " newcentos
+  echo ""
+  case $newcentos in
+  Y|y)
+    new_centos
+    ;;
+  *)
+    echo "this centos will be treated as configed centos.(rerun this script if this is a new centos)!"
+    ;;
+  esac
+  config_centos
+  echo "Your computer is successfully installed."
+}
 
-read -n 1 -t 10 -p "Is this a new Centos?[Y/N] " newcentos
-echo ""
-case $newcentos in
-Y|y)
-  new_centos
-  ;;
-*)
-  echo "this centos will be treated as configed centos.(rerun this script if this is a new centos!)"
-  ;;
-esac
-
-config_centos
-echo "Your computer is successfully installed."
+main
