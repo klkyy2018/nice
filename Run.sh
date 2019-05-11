@@ -125,16 +125,16 @@ function install_rpm_check {
   rpm_installed $1
   if [ $? -eq 0 ]; then
     install_package rpm $2
-		return 1
+    return 1
   else 
     echo "$1 has been installed"
-		return 0
+    return 0
   fi
 
 }
 
 function install_docker {
-	install_rpm_check docker docker-ce-18.06.3.ce-3.el7.x86_64.rpm
+  install_rpm_check docker docker-ce-18.06.3.ce-3.el7.x86_64.rpm
   if [ $? -eq 1 ];then
     echo $password | sudo -S usermod -aG docker ${USER}
   fi
@@ -174,7 +174,7 @@ function new_centos {
   install_goland
   install_pycharm
   install_docker
-	install_vscode
+  install_vscode
   install_chrome
 }
 
