@@ -107,13 +107,14 @@ export DEV_HOME=$HOME/mydev
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
+unset SSH_ASKPASS
 
 REPO_DEV=$DEV_HOME/repo
 JAVA_DEV=$DEV_HOME/java
 CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
-USR_BIN=/usr/local/bin
+USR_BIN=/usr/local/my
 alias cdrepo="cd $REPO_DEV"
 alias cdjava="cd $JAVA_DEV"
 alias cdcpp="cd $CPP_DEV"
