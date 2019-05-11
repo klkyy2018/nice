@@ -7,12 +7,17 @@ JAVA_DEV=$DEV_HOME/java
 CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
-read -t 10 -p "[sudo] password for $USER: " password
-if [ -z $password ];then
-  echo "timeout! please rerun this script..."
-  exit 1
-fi
 
+function get_sudo_pass {
+  read -t 10 -p "[sudo] password for $USER: " password
+  if [ -z $password ];then
+    echo "timeout! please rerun this script..."
+    exit 1
+  fi
+  return $password
+}
+
+password="9102"
 function mk_code_dir {
   mkdir -p $REPO_DEV
   mkdir -p $JAVA_DEV
@@ -178,7 +183,7 @@ function new_centos {
   install_chrome
 }
 
-function config_centos {
+function link_dot_file {
   ln_dotfile 
   ln_vpn
 }
@@ -195,7 +200,7 @@ function main {
     echo "this centos will be treated as configed centos.(rerun this script if this is a new centos)!"
     ;;
   esac
-  config_centos
+  link_dot_file
   echo "Your computer is successfully installed."
 }
 
