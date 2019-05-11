@@ -57,7 +57,7 @@ function file_exists {
   [ -f $1 ] && return 1 || return 0
 }
 
-path=$HOME/Downloads
+path=$HOME/Downloads/newcentos
 function install_package {
   file_type=$1
   file_name=$2
