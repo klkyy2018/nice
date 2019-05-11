@@ -1,7 +1,14 @@
+#
 set nu
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+# tabstop
+set ts=2
+# shiftwidth
+set sw=2
+# softtabstop
+set sts=2
+# autoinden
 set ai
-set expandtab
-set smarttab
+# expandtab
+set et
+# smarttab
+set sta
