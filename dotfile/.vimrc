@@ -1,14 +1,14 @@
-#
+"
 set nu
-# tabstop
+" tabstop
 set ts=2
-# shiftwidth
+" shiftwidth
 set sw=2
-# softtabstop
+" softtabstop
 set sts=2
-# autoinden
+" autoinden
 set ai
-# expandtab
+" expandtab
 set et
-# smarttab
+" smarttab
 set sta
