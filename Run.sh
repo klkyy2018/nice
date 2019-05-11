@@ -1,5 +1,4 @@
 #!/bin/bash
-
 MY_BIN=$HOME/bin
 USR_BIN=/usr/local/my
 DEV_HOME=$HOME/mydev
@@ -8,7 +7,7 @@ JAVA_DEV=$DEV_HOME/java
 CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
-read -t 10 -p "please enter your root password: " password
+read -t 10 -p "please enter your sudo password: " password
 if [ -z $password ];then
   echo "timeout! please rerun this script..."
   exit 1
@@ -60,23 +59,29 @@ function file_exists {
 }
 
 path=$HOME/Downloads
-function install_tar {
-  file_name=$1
+function install_package {
+  file_type=$1
+  file_name=$2
   file=$path/$file_name
+  install_flag="."$file_name"_installed"
   file_exists $file
   if [ $? -eq 1 ];then
-    echo $password | sudo -S tar xzf $file -C /usr/local/my
-  else
-    echo "$file not exists, skip install it."
-  fi
-}
-
-function install_rpm {
-  rpm_file=$1 
-  file=$path/$rpm_file
-  file_exists $file
-  if [ $? -eq 1 ];then
-    echo $password | sudo -S rpm -ivh $file
+    case $file_type in
+		tar)
+      if [ -f $USR_BIN/$install_flag ];then
+        echo "$file has been installed."
+      else
+        echo $password | sudo -S tar xzf $file -C $USR_BIN
+        sudo -S touch /usr/local/my/$install_flag
+      fi
+      ;; 
+    rpm)
+      echo $password | sudo -S yum install -y $file
+      ;;
+		*)
+		  echo "not support type!($file_type)"
+			;;
+		esac
     return 1
   else
     echo "$file not exists, skip install it."
@@ -85,22 +90,26 @@ function install_rpm {
 }
 
 function install_jdk {
-  install_tar jdk-8u201-linux-x64.tar.gz
+  install_package tar jdk-8u201-linux-x64.tar.gz
 }
 
 function install_mvn {
-  install_tar apache-maven-3.6.0-bin.tar.gz
+  install_package tar apache-maven-3.6.0-bin.tar.gz
 }
 
 function install_go {
-  install_tar go1.11.linux-amd64.tar.gz
+  install_package tar go1.11.linux-amd64.tar.gz
 }
 
 function install_docker {
-    install_rpm docker-ce-18.06.3.ce-3.el7.x86_64.rpm
-    if [ $? -eq 1 ];then
-      echo $password | sudo -S usermod -aG docker ${USER}
-    fi
+    if [ -z "$(`which docker`)" ]; then
+      install_package rpm docker-ce-18.06.3.ce-3.el7.x86_64.rpm
+			if [ $? -eq 1 ];then
+				echo $password | sudo -S usermod -aG docker ${USER}
+			fi
+		else 
+		  echo "docker has been installed"
+	  fi
 }
 
 function ln_dotfile {
@@ -140,9 +149,9 @@ Y|y)
   new_centos
   ;;
 *)
-  echo "this centos will be treated as configed centos."
-  echo "rerun this script if this is a new centos!"
+  echo "this centos will be treated as configed centos.(rerun this script if this is a new centos!)"
   ;;
 esac
 
 config_centos
+echo "Your computer is successfully installed."
