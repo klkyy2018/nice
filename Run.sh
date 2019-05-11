@@ -121,26 +121,33 @@ function rpm_installed {
   [ -z "$(which $1)" ] && return 0 || return 1
 }
 
-function install_docker {
-  rpm_installed docker
+function install_rpm_check {
+  rpm_installed $1
   if [ $? -eq 0 ]; then
-    install_package rpm docker-ce-18.06.3.ce-3.el7.x86_64.rpm
-    if [ $? -eq 1 ];then
-      echo $password | sudo -S usermod -aG docker ${USER}
-    fi
+    install_package rpm $2
+		return 1
   else 
-    echo "docker has been installed"
+    echo "$1 has been installed"
+		return 0
+  fi
+
+}
+
+function install_docker {
+	install_rpm_check docker docker-ce-18.06.3.ce-3.el7.x86_64.rpm
+  if [ $? -eq 1 ];then
+    echo $password | sudo -S usermod -aG docker ${USER}
   fi
 }
 
 function install_chrome {
-  rpm_installed google-chrome
-  if [ $? -eq 0 ]; then
-    install_package rpm google-chrome-stable_current_x86_64.rpm
-  else
-    echo "google-chrome has been installed"
-  fi
+  install_rpm_check google-chrome google-chrome-stable_current_x86_64.rpm
 }
+
+function install_vscode {
+  install_rpm_check code code-1.33.1-1554971173.el7.x86_64.rpm  
+}
+
 
 function ln_dotfile {
   cd 
@@ -162,11 +169,12 @@ function new_centos {
   install_jdk
   install_mvn
   install_go
-  install_docker
   install_clion
   install_intelij
   install_goland
   install_pycharm
+  install_docker
+	install_vscode
   install_chrome
 }
 
