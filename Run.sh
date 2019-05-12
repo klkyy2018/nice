@@ -14,17 +14,19 @@ function get_sudo_pass {
     echo "timeout! please rerun this script..."
     exit 1
   fi
-  return $password
+  echo $password
 }
 
-password="9102"
-function mk_code_dir {
+function mk_user_dir {
   mkdir -p $REPO_DEV
   mkdir -p $JAVA_DEV
   mkdir -p $CPP_DEV
   mkdir -p $GO_DEV
   mkdir -p $PY_DEV
   mkdir -p $MY_BIN
+}
+
+function mk_sys_dir {
   echo $password | sudo -S mkdir -p $USR_BIN
 }
 
@@ -189,11 +191,13 @@ function link_dot_file {
 }
 
 function main {
-  mk_code_dir
   read -n 1 -t 10 -p "Is this a new Centos?[Y/N] " newcentos
   echo ""
+  mk_user_dir
   case $newcentos in
   Y|y)
+    password=`get_sudo_pass`
+    mk_sys_dir
     new_centos
     ;;
   *)
