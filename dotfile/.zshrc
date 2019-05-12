@@ -100,6 +100,17 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
 ######################################################################
+## user's sys function
+#######################################################################
+# prevent TMUX to change the PATH
+function PATH_CONFIGER {
+  what_path_you_want_to_add=$1
+  if [[ -z $TMUX ]]; then
+    export PATH="$what_path_you_want_to_add:$PATH"
+  fi
+}
+
+######################################################################
 ## user's sys config
 #######################################################################
 export EDITOR=vim
@@ -107,7 +118,8 @@ export DEV_HOME=$HOME/mydev
 alias c='clear'
 alias lla='ls -al'
 alias zshenable="source ~/.zshrc"
-#unset SSH_ASKPASS
+# prevent ksshaskpath to work
+unset SSH_ASKPASS
 
 REPO_DEV=$DEV_HOME/repo
 JAVA_DEV=$DEV_HOME/java
@@ -128,23 +140,24 @@ alias cdpy="cd $PY_DEV"
 export GRPC_HOME=$HOME/bin/grpc
 export PB_HOME=$GRPC_HOME/protoc
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$GRPC_HOME/lib/pkgconfig:$PB_HOME/lib/pkgconfig
-export PATH=$PATH:$GRPC_HOME/bin:$PB_HOME/bin
+PATH_CONFIGER $GRPC_HOME/bin:$PB_HOME/bin
 
 # maven
 export MAVEN_HOME=$USR_BIN/apache-maven-3.6.0
-export PATH=$MAVEN_HOME/bin:$PATH
+PATH_CONFIGER $MAVEN_HOME/bin
+
 
 # java
 export JAVA_HOME=$USR_BIN/jdk1.8.0_201
 export JRE_HOME=$JAVA_HOME/jre
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-export PATH=$JAVA_HOME/bin:$PATH
+PATH_CONFIGER $JAVA_HOME/bin
 
 # go
-export PATH=$PATH:$USR_BIN/go/bin
 export GOPATH=$DEV_HOME/go
 export GOROOT=$USR_BIN/go
 export GODEBUG=netdns=go
+PATH_CONFIGER $GOROOT/bin
 
 # KunDB
 export MYSQL_FLAVOR="MySQL56"
@@ -162,7 +175,7 @@ alias charts="[ -d $kunChartsHome ] && cd $KunChartsHome || echo 'no charts dire
 alias sshgreat="ssh greatwall@172.16.7.18"
 
 #rvm
-export PATH=$PATH:$HOME/.rvm/bin
+PATH_CONFIGER $HOME/.rvm/bin
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # tmuxinator mux
@@ -188,5 +201,4 @@ _tmuxinator() {
 
 compdef _tmuxinator tmuxinator mux
 alias mux="tmuxinator"
-
-
+unset -f PATH_CONFIGER 
