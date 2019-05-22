@@ -127,6 +127,7 @@ CPP_DEV=$DEV_HOME/cpp
 GO_DEV=$DEV_HOME/go
 PY_DEV=$DEV_HOME/python
 USR_BIN=/usr/local/my
+alias gowork="cd $DEV_HOME"
 alias cdrepo="cd $REPO_DEV"
 alias cdjava="cd $JAVA_DEV"
 alias cdcpp="cd $CPP_DEV"
@@ -159,20 +160,27 @@ export GOROOT=$USR_BIN/go
 export GODEBUG=netdns=go
 PATH_CONFIGER $GOROOT/bin
 
+# mysql
+MYSQL5725=$USR_BIN/mysql5.7.25
+alias MYSQL=$MYSQL5725/bin/mysql
+alias MYSQLD=$MYSQL5725/bin/mysqld
+alias MYSQLD_SAFE=$MYSQL5725/bin/mysqld_safe
+
 # KunDB
 export MYSQL_FLAVOR="MySQL56"
 export VT_MYSQL_ROOT="$USR_BIN/mysql57"
+export VT_MARIA_ROOT="$USR_BIN/mariadb"
 export kunDataRoot="$GOPATH/vtdataroot"
 export kunHome="$GOPATH/src/github.com/youtube/vitess"
 alias cdk="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
 alias cddt="[ -d $kunDataRoot ] && cd $kunDataRoot || echo 'no kundb data directory'"
 
 # charts
-export kunChartsHome="$REPO_DEV/application-helmcharts/kundb/1.1"
-alias charts="[ -d $kunChartsHome ] && cd $KunChartsHome || echo 'no charts directory'"
-
-# tmp
-alias sshgreat="ssh greatwall@172.16.7.18"
+export kunChartsHome="$REPO_DEV/application-helmcharts/kundb/1.2"
+alias sshcharts="sshpass -p "holoZhuo" ssh root@172.26.0.5"
+alias sshidc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
+alias sshqiang="sshpass -p "inceptor" ssh root@172.16.3.241"
+alias cdcharts="[ -d $kunChartsHome ] && cd $kunChartsHome || echo 'no charts directory'"
 
 #rvm
 PATH_CONFIGER $HOME/.rvm/bin
@@ -202,3 +210,4 @@ _tmuxinator() {
 compdef _tmuxinator tmuxinator mux
 alias mux="tmuxinator"
 unset -f PATH_CONFIGER 
+

@@ -60,6 +60,17 @@ function install_tmux {
   fi
 }
 
+function install_code {
+  if [ ! $(which code) ]; then
+    echo $password | sudo -S rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    echo $password | sudo -S sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    echo $password | sudo -S yum check-update
+    echo $password | sudo -S yum install code
+  else
+    echo "code has been installed."
+  fi
+}
+
 function file_exists {
   [ -f $1 ] && return 1 || return 0
 }
@@ -151,11 +162,6 @@ function install_chrome {
   install_rpm_check google-chrome google-chrome-stable_current_x86_64.rpm
 }
 
-function install_vscode {
-  install_rpm_check code code-1.33.1-1554971173.el7.x86_64.rpm  
-}
-
-
 function ln_dotfile {
   cd 
   ln -sf $REPO_DEV/nice/dotfile/.zshrc
@@ -181,7 +187,7 @@ function new_centos {
   install_goland
   install_pycharm
   install_docker
-  install_vscode
+  install_code
   install_chrome
 }
 

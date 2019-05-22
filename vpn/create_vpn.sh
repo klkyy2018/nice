@@ -52,10 +52,4 @@ create_vpn(){
 	echo "all have finished!"
 }
 
-check_envir
-if [[ $? -eq 0 ]]; then 
-	echo "安装失败！"
-else
-	create_vpn
-fi
-
+create_vpn
