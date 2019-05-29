@@ -167,6 +167,7 @@ function ln_dotfile {
   ln -sf $REPO_DEV/nice/dotfile/.zshrc
   ln -sf $REPO_DEV/nice/dotfile/.zshrc.darwin
   ln -sf $REPO_DEV/nice/dotfile/.zshrc.linux
+  ln -sf $REPO_DEV/nice/dotfile/.tmuxinator.zsh
   ln -sf $REPO_DEV/nice/dotfile/.aliases
   ln -sf $REPO_DEV/nice/dotfile/.vimrc
   ln -sf $REPO_DEV/nice/dotfile/.gitconfig

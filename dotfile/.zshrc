@@ -110,6 +110,11 @@ function PATH_CONFIGER {
   fi
 }
 
+function SOURCEIT {
+  absolute_file=$1
+  [[ -f $absolute_file ]] && source $absolute_file
+}
+
 ######################################################################
 ## user's sys config
 #######################################################################
@@ -143,11 +148,12 @@ PATH_CONFIGER $GOROOT/bin
 
 case $(uname -s) in 
   "Darwin") 
-    [[ -f ~/.zshrc.darwin ]] && source ~/.zshrc.darwin
+    SOURCEIT ~/.zshrc.darwin
     ;;
   "Linux")
-    [[ -f ~/.zshrc.linux ]] && source ~/.zshrc.linux
+    SOURCEIT ~/.zshrc.linux
     ;;
 esac
-[[ -f ~/.aliases ]] && source ~/.aliases
+SOURCEIT ~/.aliases
 unset -f PATH_CONFIGER 
+unset -f SOURCEIT
