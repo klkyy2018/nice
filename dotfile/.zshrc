@@ -96,8 +96,8 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+# alias zshconfig="vim ~/.zshrc"
+# alias ohmyzsh="vim ~/.oh-my-zsh"
 
 ######################################################################
 ## user's sys function
@@ -110,29 +110,22 @@ function PATH_CONFIGER {
   fi
 }
 
+function SOURCEIT {
+  absolute_file=$1
+  [[ -f $absolute_file ]] && source $absolute_file
+}
+
 ######################################################################
 ## user's sys config
 #######################################################################
 export EDITOR=vim
 export DEV_HOME=$HOME/mydev
-alias c='clear'
-alias lla='ls -al'
-alias zshenable="source ~/.zshrc"
-# prevent ksshaskpath to work
-unset SSH_ASKPASS
-
-REPO_DEV=$DEV_HOME/repo
-JAVA_DEV=$DEV_HOME/java
-CPP_DEV=$DEV_HOME/cpp
-GO_DEV=$DEV_HOME/go
-PY_DEV=$DEV_HOME/python
-USR_BIN=/usr/local/my
-alias gowork="cd $DEV_HOME"
-alias cdrepo="cd $REPO_DEV"
-alias cdjava="cd $JAVA_DEV"
-alias cdcpp="cd $CPP_DEV"
-alias cdgo="cd $GO_DEV"
-alias cdpy="cd $PY_DEV"
+export REPO_DEV=$DEV_HOME/repo
+export JAVA_DEV=$DEV_HOME/java
+export CPP_DEV=$DEV_HOME/cpp
+export GO_DEV=$DEV_HOME/go
+export PY_DEV=$DEV_HOME/python
+export USR_BIN=/usr/local/my
 
 ######################################################################
 ## user's software config
@@ -140,19 +133,12 @@ alias cdpy="cd $PY_DEV"
 # grpc & protobuf
 export GRPC_HOME=$HOME/bin/grpc
 export PB_HOME=$GRPC_HOME/protoc
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$GRPC_HOME/lib/pkgconfig:$PB_HOME/lib/pkgconfig
+export PKG_CONFIG_PATH=$GRPC_HOME/lib/pkgconfig:$PB_HOME/lib/pkgconfig:$PKG_CONFIG_PATH
 PATH_CONFIGER $GRPC_HOME/bin:$PB_HOME/bin
 
 # maven
 export MAVEN_HOME=$USR_BIN/apache-maven-3.6.0
 PATH_CONFIGER $MAVEN_HOME/bin
-
-
-# java
-export JAVA_HOME=$USR_BIN/jdk1.8.0_201
-export JRE_HOME=$JAVA_HOME/jre
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-PATH_CONFIGER $JAVA_HOME/bin
 
 # go
 export GOPATH=$DEV_HOME/go
@@ -160,61 +146,14 @@ export GOROOT=$USR_BIN/go
 export GODEBUG=netdns=go
 PATH_CONFIGER $GOROOT/bin
 
-# mysql
-MYSQL5725=$USR_BIN/mysql5.7.25
-alias MYSQL=$MYSQL5725/bin/mysql
-alias MYSQLD=$MYSQL5725/bin/mysqld
-alias MYSQLD_SAFE=$MYSQL5725/bin/mysqld_safe
-
-# mariadb
-MARIA1037=$USR_BIN/mariadb-10.3.7
-alias maria=$MARIA1037/bin/mysql
-alias mariad=$MARIA1037/bin/mysqld
-alias mariad_safe=$MARIA1037/bin/mysqld_safe
-alias maria_install_db=$MARIA1037/scripts/mysql_install_db
-
-# KunDB
-export MYSQL_FLAVOR="MySQL56"
-export VT_MYSQL_ROOT="$USR_BIN/mysql57"
-export VT_MARIA_ROOT="$USR_BIN/mariadb"
-export kunDataRoot="$GOPATH/vtdataroot"
-export kunHome="$GOPATH/src/github.com/youtube/vitess"
-alias cdk="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
-alias cddt="[ -d $kunDataRoot ] && cd $kunDataRoot || echo 'no kundb data directory'"
-
-# charts
-export kunChartsHome="$REPO_DEV/application-helmcharts/kundb/1.2"
-alias sshcharts="sshpass -p "holoZhuo" ssh root@172.26.0.5"
-alias sshidc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
-alias sshqiang="sshpass -p "inceptor" ssh root@172.16.3.241"
-alias cdcharts="[ -d $kunChartsHome ] && cd $kunChartsHome || echo 'no charts directory'"
-
-#rvm
-PATH_CONFIGER $HOME/.rvm/bin
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-# tmuxinator mux
-_tmuxinator() {
-  local commands projects
-  commands=(${(f)"$(tmuxinator commands zsh)"})
-  projects=(${(f)"$(tmuxinator completions start)"})
-
-  if (( CURRENT == 2 )); then
-    _alternative \
-      'commands:: _describe -t commands "tmuxinator subcommands" commands' \
-      'projects:: _describe -t projects "tmuxinator projects" projects'
-  elif (( CURRENT == 3)); then
-    case $words[2] in
-      copy|debug|delete|open|start)
-        _arguments '*:projects:($projects)'
-      ;;
-    esac
-  fi
-
-  return
-}
-
-compdef _tmuxinator tmuxinator mux
-alias mux="tmuxinator"
+case $(uname -s) in 
+  "Darwin") 
+    SOURCEIT ~/.zshrc.darwin
+    ;;
+  "Linux")
+    SOURCEIT ~/.zshrc.linux
+    ;;
+esac
+SOURCEIT ~/.aliases
 unset -f PATH_CONFIGER 
-
+unset -f SOURCEIT

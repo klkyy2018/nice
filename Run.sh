@@ -165,6 +165,10 @@ function install_chrome {
 function ln_dotfile {
   cd 
   ln -sf $REPO_DEV/nice/dotfile/.zshrc
+  ln -sf $REPO_DEV/nice/dotfile/.zshrc.darwin
+  ln -sf $REPO_DEV/nice/dotfile/.zshrc.linux
+  ln -sf $REPO_DEV/nice/dotfile/.tmuxinator.zsh
+  ln -sf $REPO_DEV/nice/dotfile/.aliases
   ln -sf $REPO_DEV/nice/dotfile/.vimrc
   ln -sf $REPO_DEV/nice/dotfile/.gitconfig
   ln -sf $REPO_DEV/nice/dotfile/.tmux.conf.local
@@ -191,12 +195,13 @@ function new_centos {
   install_chrome
 }
 
-function link_dot_file {
+function lnk_file {
   ln_dotfile 
   ln_vpn
 }
 
-function main {
+function main_centos {
+  echo "your distribution is CentOS."
   read -n 1 -t 10 -p "Is this a new Centos?[Y/N] " newcentos
   echo ""
   mk_user_dir
@@ -210,8 +215,45 @@ function main {
     echo "this centos will be treated as configed centos.(rerun this script if this is a new centos)!"
     ;;
   esac
-  link_dot_file
+  lnk_file
   echo "Your computer is successfully installed."
+}
+
+function main_linux {
+  echo "choose your linux distribution?"
+  select var in "CentOS" "Ubuntu" "Debian"; do
+    case "$var" in
+      "CentOS")
+        main_centos
+        ;;
+      *)
+        if [[ -z "$var" ]]; then 
+          echo "wrong choice."
+        else
+          echo "$var is not support now."
+        fi
+        ;;
+    esac
+    break
+  done
+}
+
+function main_darwin {
+  ln_dotfile
+}
+
+function main {
+  os=`uname -s`
+  echo "your os is $os."
+  case "$os" in
+    "Darwin")
+      main_darwin
+      ;;
+    "Linux")
+      main_linux
+      ;;
+  esac
+  echo "all finished."
 }
 
 main

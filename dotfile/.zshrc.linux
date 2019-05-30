@@ -1,0 +1,37 @@
+# prevent ksshaskpath to work
+unset SSH_ASKPASS
+
+# java
+export JAVA_HOME=$USR_BIN/jdk1.8.0_201
+export JRE_HOME=$JAVA_HOME/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+PATH_CONFIGER $JAVA_HOME/bin
+
+# mysql
+MYSQL5725=$USR_BIN/mysql5.7.25
+alias MYSQL=$MYSQL5725/bin/mysql
+alias MYSQLD=$MYSQL5725/bin/mysqld
+alias MYSQLD_SAFE=$MYSQL5725/bin/mysqld_safe
+
+# mariadb
+MARIA1037=$USR_BIN/mariadb-10.3.7
+alias maria=$MARIA1037/bin/mysql
+alias mariad=$MARIA1037/bin/mysqld
+alias mariad_safe=$MARIA1037/bin/mysqld_safe
+alias maria_install_db=$MARIA1037/scripts/mysql_install_db
+
+# KunDB 
+export MYSQL_FLAVOR="MySQL56"
+export VT_MYSQL_ROOT="$USR_BIN/mysql57"
+export VT_MARIA_ROOT="$USR_BIN/mariadb"
+export kunDataRoot="$GOPATH/vtdataroot"
+export kunHome="$GOPATH/src/github.com/youtube/vitess"
+alias cdk="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
+alias cddt="[ -d $kunDataRoot ] && cd $kunDataRoot || echo 'no kundb data directory'"
+
+# charts
+export kunChartsHome="$REPO_DEV/application-helmcharts/kundb/1.2"
+alias sshcharts="sshpass -p "holoZhuo" ssh root@172.26.0.5"
+alias sshidc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
+alias sshqiang="sshpass -p "inceptor" ssh root@172.16.3.241"
+alias cdcharts="[ -d $kunChartsHome ] && cd $kunChartsHome || echo 'no charts directory'"
