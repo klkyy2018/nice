@@ -166,6 +166,13 @@ alias MYSQL=$MYSQL5725/bin/mysql
 alias MYSQLD=$MYSQL5725/bin/mysqld
 alias MYSQLD_SAFE=$MYSQL5725/bin/mysqld_safe
 
+# mariadb
+MARIA1037=$USR_BIN/mariadb-10.3.7
+alias maria=$MARIA1037/bin/mysql
+alias mariad=$MARIA1037/bin/mysqld
+alias mariad_safe=$MARIA1037/bin/mysqld_safe
+alias maria_install_db=$MARIA1037/scripts/mysql_install_db
+
 # KunDB
 export MYSQL_FLAVOR="MySQL56"
 export VT_MYSQL_ROOT="$USR_BIN/mysql57"
