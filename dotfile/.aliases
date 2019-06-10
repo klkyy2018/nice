@@ -1,6 +1,8 @@
 alias c="clear"
 alias lla="ls -al"
 alias zshconfig="vim ~/.zshrc"
+alias zshmac="vim ~/.zshrc.darwin"
+alias zshlinux="vim ~/.zshrc.linux"
 alias zshenable="source ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias gowork="cd $DEV_HOME"

@@ -4,3 +4,12 @@ PATH_CONFIGER /usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin
 # user bin
 PATH_CONFIGER ~/bin
 SOURCEIT ~/.tmuxinator.zsh
+
+# go
+export GOROOT=/usr/local/bin
+
+# vitess
+export vtHome="$GOPATH/src/vitess.io/vitess"
+export vtDataRoot="$GOPATH/vtdataroot"
+alias gov="[ -d $vtHome ] && cd $vtHome || echo 'no vitess src directory'"
+alias govd="[ -d $vtDataRoot ] && cd $vtDataRoot || echo 'no vitess data directory'"

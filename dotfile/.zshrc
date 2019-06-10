@@ -125,26 +125,6 @@ export JAVA_DEV=$DEV_HOME/java
 export CPP_DEV=$DEV_HOME/cpp
 export GO_DEV=$DEV_HOME/go
 export PY_DEV=$DEV_HOME/python
-export USR_BIN=/usr/local/my
-
-######################################################################
-## user's software config
-#######################################################################
-# grpc & protobuf
-export GRPC_HOME=$HOME/bin/grpc
-export PB_HOME=$GRPC_HOME/protoc
-export PKG_CONFIG_PATH=$GRPC_HOME/lib/pkgconfig:$PB_HOME/lib/pkgconfig:$PKG_CONFIG_PATH
-PATH_CONFIGER $GRPC_HOME/bin:$PB_HOME/bin
-
-# maven
-export MAVEN_HOME=$USR_BIN/apache-maven-3.6.0
-PATH_CONFIGER $MAVEN_HOME/bin
-
-# go
-export GOPATH=$DEV_HOME/go
-export GOROOT=$USR_BIN/go
-export GODEBUG=netdns=go
-PATH_CONFIGER $GOROOT/bin
 
 case $(uname -s) in 
   "Darwin") 
