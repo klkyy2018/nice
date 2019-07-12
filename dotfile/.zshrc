@@ -125,6 +125,7 @@ export JAVA_DEV=$DEV_HOME/java
 export CPP_DEV=$DEV_HOME/cpp
 export GO_DEV=$DEV_HOME/go
 export PY_DEV=$DEV_HOME/python
+export BLOG=$DEV_HOME/blog
 
 case $(uname -s) in 
   "Darwin") 

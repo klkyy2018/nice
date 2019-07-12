@@ -4,6 +4,10 @@ export USR_BIN=/usr/local/my
 ######################################################################
 ## user's software config
 #######################################################################
+# hugo
+export HUGO_HOME=$USR_BIN/hugo
+PATH_CONFIGER $HUGO_HOME
+
 # grpc & protobuf
 export GRPC_HOME=$HOME/bin/grpc
 export PB_HOME=$GRPC_HOME/protoc
@@ -13,6 +17,10 @@ PATH_CONFIGER $GRPC_HOME/bin:$PB_HOME/bin
 # maven
 export MAVEN_HOME=$USR_BIN/apache-maven-3.6.0
 PATH_CONFIGER $MAVEN_HOME/bin
+
+# gradle
+export GRADLE_HOME=$USR_BIN/gradle-5.4.1
+PATH_CONFIGER $GRADLE_HOME/bin
 
 # go
 export GOPATH=$DEV_HOME/go
@@ -48,12 +56,17 @@ export VT_MYSQL_ROOT="$USR_BIN/mysql57"
 export VT_MARIA_ROOT="$USR_BIN/mariadb"
 export kunDataRoot="$GOPATH/vtdataroot"
 export kunHome="$GOPATH/src/github.com/youtube/vitess"
-alias gok="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
-alias gokd="[ -d $kunDataRoot ] && cd $kunDataRoot || echo 'no kundb data directory'"
+alias gk="[ -d $kunHome ] && cd $kunHome || echo 'no kundb src directory'"
+alias gkd="[ -d $kunDataRoot ] && cd $kunDataRoot || echo 'no kundb data directory'"
 
 # charts
-export kunChartsHome="$REPO_DEV/application-helmcharts/kundb/1.2"
+export ChartsHome="$REPO_DEV/application-helmcharts"
+export kunChartsHome="$ChartsHome/kundb/1.1"
+alias gcharts="[ -d $ChartsHome ] && cd $ChartsHome || echo 'no charts directory'"
+alias gkcharts="[ -d $kunChartsHome ] && cd $kunChartsHome || echo 'no charts directory'"
+
+# remote machine
 alias sshcharts="sshpass -p "holoZhuo" ssh root@172.26.0.5"
 alias sshidc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
 alias sshqiang="sshpass -p "inceptor" ssh root@172.16.3.241"
-alias gocharts="[ -d $kunChartsHome ] && cd $kunChartsHome || echo 'no charts directory'"
+alias sshgreat="sshpass -p "123123" ssh greatwall@172.16.170.15"
