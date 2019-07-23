@@ -6,10 +6,14 @@ PATH_CONFIGER ~/bin
 SOURCEIT ~/.tmuxinator.zsh
 
 # go
-export GOROOT=/usr/local/bin
+export GOPATH=$GO_DEV
+export GOROOT=/usr/local/Cellar/go/1.12.5/libexec
 
 # vitess
 export vtHome="$GOPATH/src/vitess.io/vitess"
 export vtDataRoot="$GOPATH/vtdataroot"
+export MYSQL_FLAVOR=MySQL80
+export VT_MYSQL_ROOT=/usr/local
+export GODEBUG=netdns=go
 alias gov="[ -d $vtHome ] && cd $vtHome || echo 'no vitess src directory'"
 alias govd="[ -d $vtDataRoot ] && cd $vtDataRoot || echo 'no vitess data directory'"
