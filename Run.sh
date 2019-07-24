@@ -180,6 +180,11 @@ function ln_vpn {
   ln -sf $REPO_DEV/nice/vpn/vpn.sh 
 }
 
+function ln_bin {
+  cd $MY_BIN
+  ln -sf $REPO_DEV/nice/bin/vitess.env
+}
+
 function new_centos {
   install_zsh
   install_tmux
@@ -198,6 +203,7 @@ function new_centos {
 function lnk_file {
   ln_dotfile 
   ln_vpn
+  ln_bin
 }
 
 function main_centos {
@@ -240,6 +246,7 @@ function main_linux {
 
 function main_darwin {
   ln_dotfile
+  ln_bin
 }
 
 function main {

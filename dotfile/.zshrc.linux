@@ -66,7 +66,8 @@ alias gcharts="[ -d $ChartsHome ] && cd $ChartsHome || echo 'no charts directory
 alias gkcharts="[ -d $kunChartsHome ] && cd $kunChartsHome || echo 'no charts directory'"
 
 # remote machine
-alias sshcharts="sshpass -p "holoZhuo" ssh root@172.26.0.5"
-alias sshidc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
-alias sshqiang="sshpass -p "inceptor" ssh root@172.16.3.241"
-alias sshgreat="sshpass -p "123123" ssh greatwall@172.16.170.15"
+alias sshtos="sshpass -p "holoZhuo" ssh root@172.26.0.5"
+alias sshtdc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
+alias sshinceptor="sshpass -p "inceptor" ssh root@172.16.3.241"
+alias sshmy="sshpass -p "123456" ssh klkyy2018@172.26.0.93"
+alias sshcharts="sshpass -p "holoZhuo" ssh root@172.16.3.130"
