@@ -1,42 +1,35 @@
 #!/bin/bash
 MY_BIN=$HOME/bin
-USR_BIN=/usr/local/my
-DEV_HOME=$HOME/mydev
-REPO_DEV=$DEV_HOME/repo
-JAVA_DEV=$DEV_HOME/java
-CPP_DEV=$DEV_HOME/cpp
+SYS_BIN=/usr/local/klkyy2018
+DEV_HOME=$HOME/dev
 GO_DEV=$DEV_HOME/go
-PY_DEV=$DEV_HOME/python
 
 function get_sudo_pass {
   read -t 10 -p "[sudo] password for $USER: " password
-  if [ -z $password ];then
+  if [[ -z ${password} ]];then
     echo "timeout! please rerun this script..."
     exit 1
   fi
-  echo $password
+  echo ${password}
 }
 
 function mk_user_dir {
-  mkdir -p $REPO_DEV
-  mkdir -p $JAVA_DEV
-  mkdir -p $CPP_DEV
-  mkdir -p $GO_DEV
-  mkdir -p $PY_DEV
-  mkdir -p $MY_BIN
+  mkdir -p ${MY_BIN}
+  mkdir -p ${DEV_HOME}
+  mkdir -p ${GO_DEV}
 }
 
 function mk_sys_dir {
-  echo $password | sudo -S mkdir -p $USR_BIN
+  echo ${password} | sudo -S mkdir -p ${SYS_BIN}
 }
 
 function install_zsh {
-  if [ ! $(which zsh) ]; then
+  if [[ ! $(which zsh) ]]; then
     echo $password | sudo -S yum install -y zsh
   else
     echo "zsh has been installed."
   fi
-  if [ ! -d ~/.oh-my-zsh ]; then
+  if [[ ! -d ~/.oh-my-zsh ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   else
     echo "oh-my-zsh has been installed."
@@ -44,14 +37,14 @@ function install_zsh {
 }
 
 function install_tmux {
-  if [ ! -d ~/.tmux ]; then
-    echo $password | sudo -S yum install -y ncurses-devel libevent libevent-devel make
-    cd $REPO_DEV
+  if [[ ! -d ~/.tmux ]]; then
+    echo ${password} | sudo -S yum install -y ncurses-devel libevent libevent-devel make
+    cd ${DEV_HOME}
     git clone https://github.com/tmux/tmux.git
     cd tmux
     sh autogen.sh
-    ./configure && make
-    echo $password | sudo -S make install
+    ./configure && make -j 2
+    echo ${password} | sudo -S make install
     cd
     git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
@@ -60,14 +53,14 @@ function install_tmux {
   fi
 }
 
-function install_code {
-  if [ ! $(which code) ]; then
+function install_vscode {
+  if [[ ! $(which code) ]]; then
     echo $password | sudo -S rpm --import https://packages.microsoft.com/keys/microsoft.asc
     echo $password | sudo -S sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     echo $password | sudo -S yum check-update
     echo $password | sudo -S yum install code
   else
-    echo "code has been installed."
+    echo "vscode has been installed."
   fi
 }
 
@@ -80,29 +73,29 @@ function install_package {
   file_type=$1
   file_name=$2
   echo "will install $file_name'...'"
-  file=$path/$file_name
-  install_flag="."$file_name"_installed"
-  file_exists $file
-  if [ $? -eq 1 ];then
-    case $file_type in
+  file=${path}/${file_name}
+  install_flag="."${file_name}"_installed"
+  file_exists ${file}
+  if [[ $? -eq 1 ]]; then
+    case ${file_type} in
     tar)
-      if [ -f $USR_BIN/$install_flag ];then
-        echo "$file has been installed."
+      if [[ -f ${SYS_BIN}/${install_flag} ];then
+        echo "${file} has been installed."
       else
-        echo $password | sudo -S tar xzf $file -C $USR_BIN
-        sudo -S touch /usr/local/my/$install_flag
+        echo ${password} | sudo -S tar xzf $file -C ${SYS_BIN}
+        sudo -S touch /usr/local/my/${install_flag}
       fi
       ;; 
     rpm)
-      echo $password | sudo -S yum install -y $file
+      echo ${password} | sudo -S yum install -y $file
       ;;
     *)
-      echo "not support type!($file_type)"
+      echo "not support type!(${file_type})"
       ;;
     esac
     return 1
   else
-    echo "$file not exists, skip install it."
+    echo "${file} not exists, skip install it."
     return 0
   fi
 }

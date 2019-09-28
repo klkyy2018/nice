@@ -7,4 +7,3 @@ echo "waiting "$interv"s vpn works..."
 sleep $interv
 ip route replace default dev ppp0
 echo "all have finished!"
-
