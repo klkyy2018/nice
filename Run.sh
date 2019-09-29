@@ -89,7 +89,7 @@ function install_opt_package {
     esac
     return 1
   else
-    echo "${file} not exists, skip install it."
+    echo "${file} not exists, skipping install it."
     return 0
   fi
 }
@@ -99,7 +99,7 @@ function install_jdk {
 }
 
 function install_ant {
-  install_package tar apache-ant-1.10.6-bin.tar.gz
+  install_opt_package tar apache-ant-1.10.6-bin.tar.gz
 }
 
 function install_mvn {
@@ -253,6 +253,7 @@ function ln_bin {
 
 function new_linux {
   install_package curl vim automake autoconf make pkg-config
+  install_rbenv
   install_zsh
   install_tmux
   install_jdk
@@ -266,7 +267,6 @@ function new_linux {
   install_docker
   install_vscode
   install_chrome
-  install_rbenv
 }
 
 function new_apt {
