@@ -20,7 +20,7 @@ export MAVEN_HOME=${SYS_BIN}/apache-maven-3.6.0
 PATH_CONFIGER ${MAVEN_HOME}/bin
 
 # ant
-export ANT_HOME=$USR_BIN/apache-ant-1.10.6
+export ANT_HOME=${SYS_BIN}/apache-ant-1.10.6
 PATH_CONFIGER $ANT_HOME/bin
 
 # gradle
@@ -45,9 +45,9 @@ unset SSH_ASKPASS
 export JENKINS_HOME=$HOME/jenkins
 
 # java
-export JAVA_HOME=$USR_BIN/jdk1.8.0_201
-# export JAVA_HOME=$USR_BIN/jdk1.7.0_80
-export JRE_HOME=$JAVA_HOME/jre
+export JAVA_HOME=${SYS_BIN}/jdk1.8.0_201
+# export JAVA_HOME=${SYS_BIN}/jdk1.7.0_80
+export JRE_HOME=${JAVA_HOME}/jre
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 PATH_CONFIGER ${JAVA_HOME}/bin
 

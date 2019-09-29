@@ -160,8 +160,12 @@ function install_chrome {
 }
 
 function install_rbenv {
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  cd ~/.rbenv && src/configure && make -C src -j 2
+  if [[ ! -d ~/.rbenv ]]; then
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    cd ~/.rbenv && src/configure && make -C src -j 2
+  else
+    echo "rbenv has been installed."
+  fi
 }
 
 function install_vscode {
