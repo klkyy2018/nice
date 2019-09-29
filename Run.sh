@@ -98,6 +98,10 @@ function install_jdk {
   install_opt_package tar jdk-8u201-linux-x64.tar.gz
 }
 
+function install_ant {
+  install_package tar apache-ant-1.10.6-bin.tar.gz
+}
+
 function install_mvn {
   install_opt_package tar apache-maven-3.6.0-bin.tar.gz
 }
@@ -248,6 +252,7 @@ function new_linux {
   install_tmux
   install_jdk
   install_mvn
+  install_ant
   install_go
   install_clion
   install_intelij
