@@ -1,3 +1,3 @@
 config my own develop env by running Run.sh
 
-source contribute.env first!
+Execute contribute.sh before contribute to this Repo!
