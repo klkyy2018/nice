@@ -105,26 +105,22 @@ source $ZSH/oh-my-zsh.sh
 # prevent TMUX to change the PATH
 function PATH_CONFIGER {
   what_path_you_want_to_add=$1
-  if [[ -z $TMUX ]]; then
-    export PATH="$what_path_you_want_to_add:$PATH"
+  if [[ -z ${TMUX} ]]; then
+    export PATH="${what_path_you_want_to_add}:${PATH}"
   fi
 }
 
 function SOURCEIT {
   absolute_file=$1
-  [[ -f $absolute_file ]] && source $absolute_file
+  [[ -f ${absolute_file} ]] && source ${absolute_file}
 }
 
 ######################################################################
 ## user's sys config
 #######################################################################
 export EDITOR=vim
-export DEV_HOME=$HOME/mydev
-export REPO_DEV=$DEV_HOME/repo
-export JAVA_DEV=$DEV_HOME/java
-export CPP_DEV=$DEV_HOME/cpp
+export DEV_HOME=$HOME/dev
 export GO_DEV=$DEV_HOME/go
-export PY_DEV=$DEV_HOME/python
 export BLOG=$DEV_HOME/blog
 
 case $(uname -s) in 
