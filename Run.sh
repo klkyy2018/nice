@@ -247,7 +247,7 @@ function ln_bin {
 }
 
 function new_linux {
-  install_package curl vim automake autoconf make
+  install_package curl vim automake autoconf make pkg-config
   install_zsh
   install_tmux
   install_jdk
