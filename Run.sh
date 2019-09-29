@@ -77,7 +77,7 @@ function install_opt_package {
         echo "force re-install by removing ${SYS_BIN}/${install_flag}"
       else
         echo ${password} | sudo -S tar xzf $file -C ${SYS_BIN}
-        sudo -S touch /usr/local/my/${install_flag}
+        sudo -S touch ${SYS_BIN}/${install_flag}
       fi
       ;; 
     TYPE_INSTALL_KIT)
@@ -129,7 +129,7 @@ function install_pycharm {
 function install_docker {
   case ${INSTALL_KIT} in
     "apt-get")
-      install_opt_package TYPE_INSTALL_KIT docker-ce-18.06.3.ce-3.el7.x86_64.deb
+      install_opt_package TYPE_INSTALL_KIT docker-ce_18.06.3_ce_3-0_ubuntu_amd64.deb
       ;;
     "yum")
       install_opt_package TYPE_INSTALL_KIT docker-ce-18.06.3.ce-3.el7.x86_64.rpm
