@@ -5,10 +5,10 @@ DEV_HOME=${HOME}/dev
 GO_DEV=${DEV_HOME}/go
 IMPORTANT_PATH=${HOME}/.important
 
-function get_sudo_pass {
+function get_sudo_pass() {
   stty -echo
   read -t 10 -p "[sudo] password for ${USER}: " password
-  if [[ -z ${password} ]];then
+  if [[ -z ${password} ]]; then
     echo "timeout! please rerun this script..."
     exit 1
   fi
@@ -16,22 +16,22 @@ function get_sudo_pass {
   stty echo
 }
 
-function mk_user_dir {
+function mk_user_dir() {
   mkdir -p ${MY_BIN}
   mkdir -p ${DEV_HOME}
   mkdir -p ${GO_DEV}
 }
 
-function mk_sys_dir {
+function mk_sys_dir() {
   echo ${password} | sudo -S mkdir -p ${SYS_BIN}
 }
 
-function file_exists {
+function file_exists() {
   [ -f $1 ] && return 1 || return 0
 }
 
-function is_package_installed {
-  if [[ ! $(command -v $1) ]]; then 
+function is_package_installed() {
+  if [[ ! $(command -v $1) ]]; then
     return 0
   else
     echo "$1 has been installed"
@@ -39,7 +39,7 @@ function is_package_installed {
   fi
 }
 
-function install_env_check {
+function install_env_check() {
   if [[ -z ${INSTALL_KIT} ]]; then
     echo "env not set, please set INSTALL_KIT to yum,apt-get..."
     exit 1
@@ -50,10 +50,10 @@ function install_env_check {
   fi
 }
 
-function install_package {
+function install_package() {
   install_env_check
   pkgs=$@
-  for pkg in ${pkgs}; do 
+  for pkg in ${pkgs}; do
     is_package_installed ${pkg}
     if [[ $? -eq 0 ]]; then
       echo ${password} | sudo -S ${INSTALL_KIT} install -y ${pkg}
@@ -61,7 +61,7 @@ function install_package {
   done
 }
 
-function install_opt_package {
+function install_opt_package() {
   install_env_check
   file_type=$1
   file_name=$2
@@ -71,21 +71,21 @@ function install_opt_package {
   file_exists ${file}
   if [[ $? -eq 1 ]]; then
     case ${file_type} in
-    tar)
-      if [[ -f ${SYS_BIN}/${install_flag} ]]; then
-        echo "${file} has been installed."
-        echo "force re-install by removing ${SYS_BIN}/${install_flag}"
-      else
-        echo ${password} | sudo -S tar xzf $file -C ${SYS_BIN}
-        sudo -S touch ${SYS_BIN}/${install_flag}
-      fi
-      ;; 
-    TYPE_INSTALL_KIT)
-      echo ${password} | sudo -S ${INSTALL_KIT} install -y ${file}
-      ;;
-    *)
-      echo "not support type!(${file_type})"
-      ;;
+      tar)
+        if [[ -f ${SYS_BIN}/${install_flag} ]]; then
+          echo "${file} has been installed."
+          echo "force re-install by removing ${SYS_BIN}/${install_flag}"
+        else
+          echo ${password} | sudo -S tar xzf $file -C ${SYS_BIN}
+          sudo -S touch ${SYS_BIN}/${install_flag}
+        fi
+        ;;
+      TYPE_INSTALL_KIT)
+        echo ${password} | sudo -S ${INSTALL_KIT} install -y ${file}
+        ;;
+      *)
+        echo "not support type!(${file_type})"
+        ;;
     esac
     return 1
   else
@@ -94,39 +94,39 @@ function install_opt_package {
   fi
 }
 
-function install_jdk {
+function install_jdk() {
   install_opt_package tar jdk-8u201-linux-x64.tar.gz
 }
 
-function install_ant {
+function install_ant() {
   install_opt_package tar apache-ant-1.10.6-bin.tar.gz
 }
 
-function install_mvn {
+function install_mvn() {
   install_opt_package tar apache-maven-3.6.0-bin.tar.gz
 }
 
-function install_go {
+function install_go() {
   install_opt_package tar go1.11.linux-amd64.tar.gz
 }
 
-function install_clion {
+function install_clion() {
   install_opt_package tar CLion-2019.1.3.tar.gz
 }
 
-function install_intelij {
+function install_intelij() {
   install_opt_package tar ideaIC-2019.1.2.tar.gz
 }
 
-function install_goland {
+function install_goland() {
   install_opt_package tar goland-2019.1.1.tar.gz
 }
 
-function install_pycharm {
+function install_pycharm() {
   install_opt_package tar pycharm-community-2019.1.2.tar.gz
 }
 
-function install_docker {
+function install_docker() {
   case ${INSTALL_KIT} in
     "apt-get")
       install_opt_package TYPE_INSTALL_KIT docker-ce_18.06.3_ce_3-0_ubuntu_amd64.deb
@@ -139,12 +139,12 @@ function install_docker {
       exit 1
       ;;
   esac
-  if [ $? -eq 1 ];then
+  if [ $? -eq 1 ]; then
     echo ${password} | sudo -S usermod -aG docker ${USER}
   fi
 }
 
-function install_chrome {
+function install_chrome() {
   case ${INSTALL_KIT} in
     "apt-get")
       install_opt_package TYPE_INSTALL_KIT google-chrome-stable_current_x86_64.deb
@@ -159,7 +159,7 @@ function install_chrome {
   esac
 }
 
-function install_rbenv {
+function install_rbenv() {
   if [[ ! -d ~/.rbenv ]]; then
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
     cd ~/.rbenv && src/configure && make -C src -j 2
@@ -168,7 +168,7 @@ function install_rbenv {
   fi
 }
 
-function install_vscode {
+function install_vscode() {
   if [[ ! $(which code) ]]; then
     case ${INSTALL_KIT} in
       "apt-get")
@@ -190,7 +190,7 @@ function install_vscode {
   fi
 }
 
-function install_zsh {
+function install_zsh() {
   install_package zsh
   if [[ ! -d ~/.oh-my-zsh ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -199,7 +199,7 @@ function install_zsh {
   fi
 }
 
-function install_tmux_dependencies {
+function install_tmux_dependencies() {
   install_env_check
   case ${INSTALL_KIT} in
     "apt-get")
@@ -215,7 +215,7 @@ function install_tmux_dependencies {
   esac
 }
 
-function install_tmux {
+function install_tmux() {
   if [[ ! -d ~/.tmux ]]; then
     install_tmux_dependencies
     cd ${DEV_HOME}
@@ -232,7 +232,7 @@ function install_tmux {
   fi
 }
 
-function ln_dotfile {
+function ln_dotfile() {
   cd ${HOME}
   ln -sf ${DEV_HOME}/nice/dotfile/.zshrc
   ln -sf ${DEV_HOME}/nice/dotfile/.zshrc.darwin
@@ -244,18 +244,18 @@ function ln_dotfile {
   ln -sf ${DEV_HOME}/nice/dotfile/.tmux.conf.local
 }
 
-function ln_vpn {
+function ln_vpn() {
   cd ${MY_BIN}
   ln -sf ${DEV_HOME}/nice/vpn/create_vpn.sh
-  ln -sf ${DEV_HOME}/nice/vpn/vpn.sh 
+  ln -sf ${DEV_HOME}/nice/vpn/vpn.sh
 }
 
-function ln_bin {
+function ln_bin() {
   cd ${MY_BIN}
   ln -sf ${DEV_HOME}/nice/bin/vitess.env
 }
 
-function new_linux {
+function new_linux() {
   install_package curl vim automake autoconf make pkg-config
   install_rbenv
   install_zsh
@@ -273,37 +273,37 @@ function new_linux {
   install_chrome
 }
 
-function new_apt {
+function new_apt() {
   new_linux
 }
 
-function new_yum {
+function new_yum() {
   new_linux
 }
 
-function lnk_file {
-  ln_dotfile 
+function lnk_file() {
+  ln_dotfile
   ln_vpn
   ln_bin
 }
 
-function main_apt {
+function main_apt() {
   export INSTALL_KIT="apt-get"
   echo "Using ${INSTALL_KIT}."
   new_apt
   echo "Your computer is successfully installed."
 }
 
-function main_yum {
+function main_yum() {
   export INSTALL_KIT="yum"
   echo "Using ${INSTALL_KIT}."
   new_yum
   echo "Your computer is successfully installed."
 }
 
-function main_linux {
+function main_linux() {
   mk_user_dir
-  password=`get_sudo_pass`
+  password=$(get_sudo_pass)
   mk_sys_dir
   echo -e "\nChoose your linux distribution?"
   select var in "CentOS" "Ubuntu"; do
@@ -315,7 +315,7 @@ function main_linux {
         main_apt
         ;;
       *)
-        if [[ -z ${var} ]]; then 
+        if [[ -z ${var} ]]; then
           echo "wrong choice."
         else
           echo "${var} is not support now."
@@ -327,13 +327,13 @@ function main_linux {
   lnk_file
 }
 
-function main_darwin {
+function main_darwin() {
   ln_dotfile
   ln_bin
 }
 
-function main {
-  os=`uname -s`
+function main() {
+  os=$(uname -s)
   echo "Runing on ${os}."
   case "${os}" in
     "Darwin")

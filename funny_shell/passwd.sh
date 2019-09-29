@@ -1,15 +1,14 @@
 #!/bin/bash
- 
+
 getchar() {
   stty cbreak -echo
-  dd if=/dev/tty bs=1 count=1 2> /dev/null
+  dd if=/dev/tty bs=1 count=1 2>/dev/null
   stty -cbreak echo
 }
- 
- 
+
 printf "Please input your passwd: "
-while : ; do
-  ret=`getchar`
+while :; do
+  ret=$(getchar)
   if [ x$ret = x ]; then
     echo
     break
@@ -17,5 +16,5 @@ while : ; do
   str="$str$ret"
   printf "*"
 done
- 
+
 echo "Your password is: $str"

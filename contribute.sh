@@ -2,7 +2,7 @@
 dir=$(basename $(pwd))
 if [[ ${dir} != "nice" ]]; then
   echo "this script must be executed at root directory of the repo"
-  exit 1  
+  exit 1
 fi
 NICE_HOME=$(pwd)
 mkdir -p ${NICE_HOME}/.git/hooks
