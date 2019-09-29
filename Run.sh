@@ -159,6 +159,11 @@ function install_chrome {
   esac
 }
 
+function install_rbenv {
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  cd ~/.rbenv && src/configure && make -C src -j 2
+}
+
 function install_vscode {
   if [[ ! $(which code) ]]; then
     case ${INSTALL_KIT} in
@@ -261,6 +266,7 @@ function new_linux {
   install_docker
   install_vscode
   install_chrome
+  install_rbenv
 }
 
 function new_apt {

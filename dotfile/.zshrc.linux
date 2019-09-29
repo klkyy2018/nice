@@ -1,5 +1,5 @@
 # my software
-export {SYS_BIN}=/usr/local/klkkyy2018
+export SYS_BIN=/usr/local/klkkyy2018
 PATH_CONFIGER ${SYS_BIN}/bin
 
 ######################################################################
