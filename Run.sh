@@ -245,14 +245,14 @@ function ln_dotfile {
 }
 
 function ln_vpn {
-  cd $MY_BIN
+  cd ${MY_BIN}
   ln -sf ${DEV_HOME}/nice/vpn/create_vpn.sh
   ln -sf ${DEV_HOME}/nice/vpn/vpn.sh 
 }
 
 function ln_bin {
-  cd $MY_BIN
-  ln -sf $REPO_DEV/nice/bin/vitess.env
+  cd ${MY_BIN}
+  ln -sf ${DEV_HOME}/nice/bin/vitess.env
 }
 
 function new_linux {
@@ -305,10 +305,9 @@ function main_linux {
   mk_user_dir
   password=`get_sudo_pass`
   mk_sys_dir
-  lnk_file
   echo -e "\nChoose your linux distribution?"
-  select var in "CentOS" "Ubuntu" "Debian"; do
-    case "$var" in
+  select var in "CentOS" "Ubuntu"; do
+    case ${var} in
       "CentOS")
         main_yum
         ;;
@@ -316,15 +315,16 @@ function main_linux {
         main_apt
         ;;
       *)
-        if [[ -z "$var" ]]; then 
+        if [[ -z ${var} ]]; then 
           echo "wrong choice."
         else
-          echo "$var is not support now."
+          echo "${var} is not support now."
         fi
         ;;
     esac
     break
   done
+  lnk_file
 }
 
 function main_darwin {
@@ -334,8 +334,8 @@ function main_darwin {
 
 function main {
   os=`uname -s`
-  echo "your os is $os."
-  case "$os" in
+  echo "Runing on ${os}."
+  case "${os}" in
     "Darwin")
       main_darwin
       ;;
