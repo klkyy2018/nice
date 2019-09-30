@@ -1,5 +1,10 @@
 #!/bin/bash
 set -e
-for hook in ../hooks; do
+if [[ -z ${GIT_DIR} ]]; then
+  DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+  GIT_DIR="${DIR}/.."
+fi
+for hook in ${GIT_DIR}/../funny_shell/git/hooks/*; do
+  echo "execute hook: ${hook}."
   ${hook}
 done

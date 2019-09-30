@@ -1,12 +1,11 @@
 #!/bin/bash
-
 if [[ -z "$(command -v shfmt)" ]]; then
   echo "shfmt not found, please install this tool referring https://github.com/mvdan/sh"
   exit 0
 fi
 
-if [[ -z ${VTTOP} ]]; then
-  echo "please source dev.env first"
+if [[ -z ${NICE_HOME} ]]; then
+  echo "please source contribute.env first"
   exit 0
 fi
 
@@ -18,7 +17,7 @@ dot_shfiles=($(git diff --cached --name-only --diff-filter=ACMR | grep '.*\.sh$'
 
 normal_shfiles=($(git diff --cached --name-only --diff-filter=ACMR | grep -v '\.'))
 for file in ${normal_shfiles[@]}; do
-  first_line=$(head -1 ${VTTOP}/${file})
+  first_line=$(head -1 ${NICE_HOME}/${file})
   for pattern in ${shebang_pattern[@]}; do
     if [[ ${first_line} == ${pattern} ]]; then
       shfiles=(${shfiles[@]} ${file})
@@ -57,7 +56,7 @@ echo >&2 -n "  shfmt -i 2 -ci -s -w"
 for f in ${files}; do
   # Print " \" after the "shfmt" above and each filename (except for the last one).
   echo >&2 ' \'
-  echo >&2 -n "    ${VTTOP}/$f"
+  echo >&2 -n "    ${NICE_HOME}/$f"
 done
 echo >&2
 

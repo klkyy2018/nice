@@ -3,6 +3,7 @@ MY_BIN=${HOME}/bin
 SYS_BIN=/usr/local/klkyy2018
 DEV_HOME=${HOME}/dev
 GO_DEV=${DEV_HOME}/go
+# all tarball should put into IMPORTANT_PATH
 IMPORTANT_PATH=${HOME}/.important
 
 function get_sudo_pass() {
@@ -27,7 +28,7 @@ function mk_sys_dir() {
 }
 
 function file_exists() {
-  [ -f $1 ] && return 1 || return 0
+  [[ -f $1 ]] && return 1 || return 0
 }
 
 function is_package_installed() {
@@ -346,4 +347,33 @@ function main() {
   echo "all finished."
 }
 
-main
+function backup() {
+  for file in $1; do
+    file_exists ${file}
+    if [[ $? -eq 1 ]]; then
+      mv ${file} ${file}.$(date +%s)
+    fi
+  done
+}
+
+function main_quick() {
+  cd ${HOME}
+  $(pwd)
+  backup .bashrc .vimrc .gitconfig .aliases
+  ln -sf ${DEV_HOME}/nice/dotfile/.bashrc
+  ln -sf ${DEV_HOME}/nice/dotfile/.vimrc
+  ln -sf ${DEV_HOME}/nice/dotfile/.gitconfig
+}
+
+while getopts "q" args; do
+  case ${args} in
+    q)
+      echo "quick mode!"
+      quick_mode="true"
+      main_quick
+      ;;
+    *)
+      main
+      ;;
+  esac
+done
