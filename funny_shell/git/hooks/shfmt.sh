@@ -6,7 +6,7 @@ fi
 
 if [[ -z ${NICE_HOME} ]]; then
   echo "please source contribute.env first"
-  exit 0
+  exit 1
 fi
 
 shebang_pattern=("#!/bin/bash" "#!/bin/sh" "#!/usr/bin/env bash")
