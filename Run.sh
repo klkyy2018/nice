@@ -352,7 +352,7 @@ function main() {
 }
 
 function backup() {
-  for file in $1; do
+  for file in $@; do
     file_exists ${file}
     if [[ $? -eq 1 ]]; then
       mv ${file} ${file}.$(date +%s)
@@ -362,8 +362,7 @@ function backup() {
 
 function main_quick() {
   cd ${HOME}
-  $(pwd)
-  backup .bashrc .vimrc .gitconfig .aliases
+  backup ".bashrc" ".vimrc" ".gitconfig"
   ln -sf ${DEV_HOME}/nice/dotfile/.bashrc
   ln -sf ${DEV_HOME}/nice/dotfile/.vimrc
   ln -sf ${DEV_HOME}/nice/dotfile/.gitconfig
