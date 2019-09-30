@@ -334,6 +334,10 @@ function main_darwin() {
 }
 
 function main() {
+  if [[ ${quick_mode} == "true" ]]; then
+    main_quick
+    exit 0
+  fi
   os=$(uname -s)
   echo "Runing on ${os}."
   case "${os}" in
@@ -365,15 +369,18 @@ function main_quick() {
   ln -sf ${DEV_HOME}/nice/dotfile/.gitconfig
 }
 
+local quick_mode=""
 while getopts "q" args; do
   case ${args} in
     q)
       echo "quick mode!"
       quick_mode="true"
-      main_quick
       ;;
     *)
-      main
+      echo "unsupported option"
+      exit 1
       ;;
   esac
 done
+
+main
