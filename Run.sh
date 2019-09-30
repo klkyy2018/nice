@@ -369,7 +369,7 @@ function main_quick() {
   ln -sf ${DEV_HOME}/nice/dotfile/.gitconfig
 }
 
-local quick_mode=""
+quick_mode=""
 while getopts "q" args; do
   case ${args} in
     q)
