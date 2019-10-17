@@ -74,14 +74,17 @@ alias gk="[ -d ${kunHome} ] && cd ${kunHome} || echo 'no kundb src directory'"
 alias gkd="[ -d ${kunDataRoot} ] && cd ${kunDataRoot} || echo 'no kundb data directory'"
 
 # charts
-export ChartsHome="${REPO_DEV}/application-helmcharts"
+export ChartsHome="${DEV_HOME}/application-helmcharts"
 export kunChartsHome="${ChartsHome}/kundb/1.2"
 alias gcharts="[ -d ${ChartsHome} ] && cd ${ChartsHome} || echo 'no charts directory'"
 alias gkcharts="[ -d ${kunChartsHome} ] && cd ${kunChartsHome} || echo 'no charts directory'"
 
 # remote machine
-alias sshtdc="sshpass -p "holoZhuo" ssh root@172.16.3.231"
-alias ssh93="sshpass -p "9102" ssh klkyy2018@172.26.0.93"
-alias ssh98="sshpass -p "9102" ssh klkyy2018@172.26.0.98"
+alias ssh231="sshpass -p "holoZhuo" ssh root@172.16.3.231"
+alias ssh51="sshpass -p "tdcregression" ssh root@172.16.1.51"
+alias ssh93="sshpass -p "1234" ssh root@172.26.0.93"
+alias ssh95="sshpass -p "1234" ssh root@172.26.0.95"
+alias ssh96="sshpass -p "1234" ssh root@172.26.0.96"
+alias ssh98="sshpass -p "1234" ssh root@172.26.0.98"
 alias sshkylin="sshpass -p "warp123" ssh transwarp@172.16.190.231"
 alias sshtaishan="sshpass -p "arm64ci" ssh root@172.26.0.106"

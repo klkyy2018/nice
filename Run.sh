@@ -257,7 +257,7 @@ function ln_bin() {
 }
 
 function new_linux() {
-  install_package curl vim automake autoconf make pkg-config
+  install_package curl vim automake autoconf make flex bison pkg-config
   install_rbenv
   install_zsh
   install_tmux
