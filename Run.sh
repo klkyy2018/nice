@@ -1,6 +1,6 @@
 #!/bin/bash
 MY_BIN=${HOME}/bin
-SYS_BIN=/usr/local/klkyy2018
+SYS_BIN=/usr/local/${USER}
 DEV_HOME=${HOME}/dev
 GO_DEV=${DEV_HOME}/go
 # all tarball should put into IMPORTANT_PATH
@@ -116,11 +116,12 @@ function install_clion() {
 }
 
 function install_intelij() {
-  install_opt_package tar ideaIC-2019.1.2.tar.gz
+  #install_opt_package tar ideaIC-2019.1.2.tar.gz
+  install_opt_package tar ideaIC-2019.3.1.tar.gz
 }
 
 function install_goland() {
-  install_opt_package tar goland-2019.1.1.tar.gz
+  install_opt_package tar goland-2019.3.tar.gz
 }
 
 function install_pycharm() {
