@@ -125,7 +125,7 @@ function install_goland() {
 }
 
 function install_pycharm() {
-  install_opt_package tar pycharm-community-2019.1.2.tar.gz
+  install_opt_package tar pycharm-community-2019.3.1.tar.gz
 }
 
 function install_docker() {
