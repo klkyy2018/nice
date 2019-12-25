@@ -174,7 +174,12 @@ function install_vscode() {
   if [[ ! $(which code) ]]; then
     case ${INSTALL_KIT} in
       "apt-get")
-        echo "not support for installing code"
+        echo ${password} | curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /tmp/packages.microsoft.gpg
+        echo ${password} | sudo -S install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/
+        echo ${password} | sudo -S sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+        echo ${password} | sudo -S apt-get install apt-transport-https
+        echo ${password} | sudo -S apt-get update
+        echo ${password} | sudo -S apt-get install code
         ;;
       "yum")
         echo ${password} | sudo -S rpm --import https://packages.microsoft.com/keys/microsoft.asc
