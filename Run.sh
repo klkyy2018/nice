@@ -112,7 +112,7 @@ function install_go() {
 }
 
 function install_clion() {
-  install_opt_package tar CLion-2019.1.3.tar.gz
+  install_opt_package tar CLion-2019.3.2.tar.gz
 }
 
 function install_intelij() {
@@ -125,7 +125,7 @@ function install_goland() {
 }
 
 function install_pycharm() {
-  install_opt_package tar pycharm-community-2019.3.1.tar.gz
+  install_opt_package tar pycharm-community-2019.3.3.tar.gz
 }
 
 function install_docker() {
@@ -174,7 +174,7 @@ function install_vscode() {
   if [[ ! $(which code) ]]; then
     case ${INSTALL_KIT} in
       "apt-get")
-        echo ${password} | curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /tmp/packages.microsoft.gpg
+        echo ${password} | curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >/tmp/packages.microsoft.gpg
         echo ${password} | sudo -S install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/
         echo ${password} | sudo -S sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
         echo ${password} | sudo -S apt-get install apt-transport-https

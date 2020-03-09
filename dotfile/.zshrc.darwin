@@ -1,8 +1,6 @@
 # gem
 PATH_CONFIGER /usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin
 
-# user bin
-PATH_CONFIGER ~/bin
 SOURCEIT ~/.tmuxinator.zsh
 
 # go

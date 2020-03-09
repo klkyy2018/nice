@@ -1,5 +1,6 @@
 # my software
 export SYS_BIN=/usr/local/klkyy2018
+export GOSDK=$HOME/sdk
 PATH_CONFIGER ${SYS_BIN}/bin
 
 ######################################################################
@@ -32,10 +33,14 @@ export RBENV_HOME=$HOME/.rbenv
 PATH_CONFIGER $RBENV_HOME/bin
 eval "$(rbenv init -)"
 
+# vscode 
+alias code="code -n"
+
 # go
 export GOPATH=${DEV_HOME}/go
-export GOROOT=${SYS_BIN}/go
+export GOROOT=${GOSDK}/go1.14
 export GODEBUG=netdns=go
+export GOPROXY="https://goproxy.io"
 PATH_CONFIGER ${GOROOT}/bin
 
 # prevent ksshaskpath to work

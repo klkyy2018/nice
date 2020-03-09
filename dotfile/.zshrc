@@ -122,6 +122,10 @@ export EDITOR=vim
 export DEV_HOME=$HOME/dev
 export GO_DEV=$DEV_HOME/go
 export BLOG=$DEV_HOME/blog
+ulimit -c unlimited
+
+# user bin
+PATH_CONFIGER ${HOME}/bin
 
 case $(uname -s) in 
   "Darwin") 
