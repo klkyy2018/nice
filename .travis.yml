@@ -1,0 +1,3 @@
+script:
+    - source contribute.env
+    - ${NICE_HOME}/funny_shell/git/pre-commit
