@@ -13,3 +13,5 @@ set ai
 set et
 " smarttab
 set sta
+" 
+set pastetoggle=<F12>

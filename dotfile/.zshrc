@@ -115,6 +115,16 @@ function SOURCEIT {
   [[ -f ${absolute_file} ]] && source ${absolute_file}
 }
 
+function sson() {
+    export http_proxy=http://localhost:8118
+    export https_proxy=http://localhost:8118
+    export ftp_proxy=http://localhost:8118
+}
+
+function ssoff() {
+    unset http_proxy https_proxy ftp_proxy
+}
+
 ######################################################################
 ## user's sys config
 #######################################################################

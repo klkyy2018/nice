@@ -255,6 +255,7 @@ function ln_vpn() {
   cd ${MY_BIN}
   ln -sf ${DEV_HOME}/nice/vpn/create_vpn.sh
   ln -sf ${DEV_HOME}/nice/vpn/vpn.sh
+  ln -sf ${DEV_HOME}/nice/vpn/myproxy
 }
 
 function ln_bin() {

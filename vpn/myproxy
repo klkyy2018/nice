@@ -1,0 +1,20 @@
+#! /bin/bash
+if [[ $1 == "off" ]];then
+  pkill -f sslocal
+  exit
+elif [[ $1 == "1" ]]; then
+  nohup sslocal -c /etc/shadowsocks/s1.json >/dev/null 2>&1 &
+elif [[ $1 == "2" ]]; then
+  nohup sslocal -c /etc/shadowsocks/s2.json >/dev/null 2>&1 &
+elif [[ $1 == "3" ]]; then
+  nohup sslocal -c /etc/shadowsocks/s3.json >/dev/null 2>&1 &
+elif [[ $1 == "4" ]]; then
+  nohup sslocal -c /etc/shadowsocks/s4.json >/dev/null 2>&1 &
+elif [[ $1 == "5" ]]; then
+  nohup sslocal -c /etc/shadowsocks/s5.json >/dev/null 2>&1 &
+else
+  echo "no config for sslocal, exit"
+  exit
+fi
+sudo privoxy /etc/privoxy/config # only for Linux
+# for Mac OS, sudo /Application/Privoxy/startPrivoxy.sh
