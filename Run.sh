@@ -19,11 +19,13 @@ function get_sudo_pass() {
 
 function mk_user_dir() {
   mkdir -p ${MY_BIN}
+  mkdir -p ${OPT_BIN}
   mkdir -p ${DEV_HOME}
   mkdir -p ${GO_DEV}
-  mkdir -p ${OPT_BIN}
+  mkdir -p ${IMPORTANT_PATH}
 }
 
+# sys dir need super priviledge
 function mk_sys_dir() {
 #  echo ${password} | sudo -S mkdir -p ${OPT_BIN}
    echo ""
@@ -53,6 +55,7 @@ function install_env_check() {
   fi
 }
 
+# install packages using system package manage kit
 function install_package() {
   install_env_check
   pkgs=$@
@@ -64,6 +67,7 @@ function install_package() {
   done
 }
 
+# install 3rd party package
 function install_opt_package() {
   install_env_check
   file_type=$1
@@ -85,6 +89,9 @@ function install_opt_package() {
         ;;
       TYPE_INSTALL_KIT)
         echo ${password} | sudo -S ${INSTALL_KIT} install -y ${file}
+        ;;
+     PACMAN)
+        echo ${password} | sudo -S pacman -S -y ${file}
         ;;
       *)
         echo "not support type!(${file_type})"
@@ -154,6 +161,9 @@ function install_chrome() {
       ;;
     "yum")
       install_opt_package TYPE_INSTALL_KIT google-chrome-stable_current_x86_64.rpm
+      ;;
+    "pacman")
+      install_package google-chrome
       ;;
     *)
       echo "not support KIT: ${INSTALL_KIT}"

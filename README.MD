@@ -1,4 +1,4 @@
-# nice
+# onekeyenv
 ## USAGE
 ```shell
 mkdir -p ~/dev
