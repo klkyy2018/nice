@@ -38,10 +38,10 @@ alias code="code -n"
 
 # go
 export GOPATH=${DEV_HOME}/go
-export GOROOT=${GOSDK}/go1.14
+export GOROOT=${GOSDK}/go1.14.1
 export GODEBUG=netdns=go
 export GOPROXY="https://goproxy.io"
-PATH_CONFIGER ${GOROOT}/bin
+PATH_CONFIGER ${GOROOT}/bin:${GOPATH}/bin
 
 # prevent ksshaskpath to work
 unset SSH_ASKPASS
