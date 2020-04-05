@@ -1,6 +1,6 @@
 #!/bin/bash
 MY_BIN=${HOME}/bin
-SYS_BIN=/usr/local/${USER}
+OPT_BIN=/opt/${USER}
 DEV_HOME=${HOME}/dev
 GO_DEV=${DEV_HOME}/go
 # all tarball should put into IMPORTANT_PATH
@@ -21,10 +21,12 @@ function mk_user_dir() {
   mkdir -p ${MY_BIN}
   mkdir -p ${DEV_HOME}
   mkdir -p ${GO_DEV}
+  mkdir -p ${OPT_BIN}
 }
 
 function mk_sys_dir() {
-  echo ${password} | sudo -S mkdir -p ${SYS_BIN}
+#  echo ${password} | sudo -S mkdir -p ${OPT_BIN}
+   echo ""
 }
 
 function file_exists() {
@@ -73,12 +75,12 @@ function install_opt_package() {
   if [[ $? -eq 1 ]]; then
     case ${file_type} in
       tar)
-        if [[ -f ${SYS_BIN}/${install_flag} ]]; then
+        if [[ -f ${OPT_BIN}/${install_flag} ]]; then
           echo "${file} has been installed."
-          echo "force re-install by removing ${SYS_BIN}/${install_flag}"
+          echo "force re-install by removing ${OPT_BIN}/${install_flag}"
         else
-          echo ${password} | sudo -S tar xzf $file -C ${SYS_BIN}
-          sudo -S touch ${SYS_BIN}/${install_flag}
+          echo ${password} | sudo -S tar xzf $file -C ${OPT_BIN}
+          sudo -S touch ${OPT_BIN}/${install_flag}
         fi
         ;;
       TYPE_INSTALL_KIT)
@@ -116,7 +118,6 @@ function install_clion() {
 }
 
 function install_intelij() {
-  #install_opt_package tar ideaIC-2019.1.2.tar.gz
   install_opt_package tar ideaIC-2019.3.1.tar.gz
 }
 
