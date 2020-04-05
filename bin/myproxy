@@ -1,5 +1,5 @@
 #! /bin/bash
-if [[ $1 == "off" ]];then
+if [[ $1 == "off" ]]; then
   pkill -f sslocal
   exit
 elif [[ $1 == "1" ]]; then

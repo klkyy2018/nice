@@ -204,7 +204,7 @@ function install_vscode() {
   is_package_installed "code"
   if [[ $? -eq 0 ]]; then
     case ${INSTALL_KIT} in
-      "apt-get"|"apt")
+      "apt-get" | "apt")
         echo ${password} | curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >/tmp/packages.microsoft.gpg
         super "install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/"
         super "sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'"
@@ -232,7 +232,7 @@ function install_vscode() {
 function install_zsh() {
   is_package_installed "zsh"
   if [[ $? -eq 0 ]]; then
-      install_package zsh
+    install_package zsh
   fi
   if [[ ! -d ~/.oh-my-zsh ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --skip-chsh"
@@ -244,7 +244,7 @@ function install_zsh() {
 function install_tmux_dependencies() {
   install_env_check
   case ${INSTALL_KIT} in
-    "apt-get"|"apt")
+    "apt-get" | "apt")
       super "apt-get install -y libncurses-dev libevent-dev"
       ;;
     "yum")
@@ -338,13 +338,13 @@ function main_linux() {
   source /etc/os-release
   echo "your distribution is ${ID}."
   case $ID in
-    debian|ubuntu|devuan)
+    debian | ubuntu | devuan)
       export INSTALL_KIT="apt-get"
       ;;
-    centos|fedora|rhel)
+    centos | fedora | rhel)
       export INSTALL_KIT="yum"
       ;;
-    manjaro|arch)
+    manjaro | arch)
       export INSTALL_KIT="pacman"
       ;;
     *)
