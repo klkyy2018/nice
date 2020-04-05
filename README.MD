@@ -10,7 +10,7 @@ onekey将会安装: zsh oh-my-zsh tmux chrome vscode docker rbenv shfmt
  - go1.11.linux-amd64.tar.gz
  - CLion-2019.3.2.tar.gz
  - ideaIC-2019.3.1.tar.gz
- - goland-2019.3.tar.gz
+ - goland-2019.3.4.tar.gz
  - pycharm-community-2019.3.3.tar.gz
 
 ## USAGE

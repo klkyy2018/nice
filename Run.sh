@@ -67,10 +67,10 @@ function install_package() {
     if [[ $? -eq 0 ]]; then
       case ${INSTALL_KIT} in
         "apt-get" | "apt" | "yum")
-          super ${INSTALL_KIT} install -y ${pkg}
+          super "${INSTALL_KIT} install -y ${pkg}"
           ;;
         "pacman")
-          super ${INSTALL_KIT} -S --noconfirm ${pkg}
+          super "${INSTALL_KIT} -S --noconfirm ${pkg}"
           ;;
         *)
           echo "${INSTALL_KIT} is not support."
@@ -96,15 +96,15 @@ function install_opt_package() {
           echo "${file} has been installed."
           echo "force re-install by removing ${OPT_BIN}/${install_flag}"
         else
-          super tar xzf $file -C ${OPT_BIN}
+          super "tar xzf $file -C ${OPT_BIN}"
           sudo -S touch ${OPT_BIN}/${install_flag}
         fi
         ;;
       TYPE_INSTALL_KIT)
-        super ${INSTALL_KIT} install -y ${file}
+        super "${INSTALL_KIT} install -y ${file}"
         ;;
       PACMAN)
-        super pacman -S -y ${file}
+        super "pacman -S -y ${file}"
         ;;
       *)
         echo "not support type!(${file_type})"
@@ -142,7 +142,7 @@ function install_intelij() {
 }
 
 function install_goland() {
-  install_opt_package tar goland-2019.3.tar.gz
+  install_opt_package tar goland-2019.3.4.tar.gz
 }
 
 function install_pycharm() {
@@ -166,7 +166,7 @@ function install_docker() {
       ;;
   esac
   if [ $? -eq 1 ]; then
-    super usermod -aG docker ${USER}
+    super "usermod -aG docker ${USER}"
   fi
 }
 
@@ -206,17 +206,17 @@ function install_vscode() {
     case ${INSTALL_KIT} in
       "apt-get"|"apt")
         echo ${password} | curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >/tmp/packages.microsoft.gpg
-        super install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/
-        super sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-        super apt-get install apt-transport-https
-        super apt-get update
-        super apt-get install code
+        super "install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/"
+        super "sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'"
+        super "apt-get install apt-transport-https"
+        super "apt-get update"
+        super "apt-get install code"
         ;;
       "yum")
-        super rpm --import https://packages.microsoft.com/keys/microsoft.asc
-        super sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-        super yum check-update
-        super yum install code
+        super "rpm --import https://packages.microsoft.com/keys/microsoft.asc"
+        super "sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'"
+        super "yum check-update"
+        super "yum install code"
         ;;
       "pacmac")
         install_package "code"
@@ -245,10 +245,10 @@ function install_tmux_dependencies() {
   install_env_check
   case ${INSTALL_KIT} in
     "apt-get"|"apt")
-      super apt-get install -y libncurses-dev libevent-dev
+      super "apt-get install -y libncurses-dev libevent-dev"
       ;;
     "yum")
-      super yum install -y ncurses-devel libevent libevent-devel
+      super "yum install -y ncurses-devel libevent libevent-devel"
       ;;
     "pacman")
       echo "pacman dont need tmux dependencies"
@@ -269,7 +269,7 @@ function install_tmux() {
     cd tmux
     sh autogen.sh
     ./configure && make -j 2
-    super make install
+    super "make install"
   fi
   if [[ ! -d ~/.tmux ]]; then
     cd ${HOME}
