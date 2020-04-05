@@ -1,9 +1,9 @@
-# onekeyenv "一键环境"  
-该项目主要是用在新装的操作系统中配置开发环境。  
-onekey将会安装: zsh oh-my-zsh tmux chrome vscode docker rbenv shfmt  
-以及第三方包: jdk maven ant go intelij goland pycharm clion
+# onekeyenv
+This project is mainly used to configure the development environment in the newly installed operating system.  
+onekey will install: zsh oh-my-zsh tmux chrome vscode docker rbenv shfmt   
+and some 3rd party softwares: jdk maven ant go intelij goland pycharm clion
 
-第三方包现在的安装方式还不太友好，需要将以下包放在${HOME}/.important目录下才能正常安装：  
+The installation method of the third-party packages is not yet friendly. You need to put the following packages in the `${HOME}/.Important` directory to install normally:  
  - jdk-8u201-linux-x64.tar.gz
  - apache-ant-1.10.6-bin.tar.gz
  - apache-maven-3.6.0-bin.tar.gz
