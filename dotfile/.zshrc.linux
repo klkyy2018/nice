@@ -1,13 +1,13 @@
 # my software
-export SYS_BIN=/usr/local/klkyy2018
+export OPT_BIN=/opt/${USER}
 export GOSDK=$HOME/sdk
-PATH_CONFIGER ${SYS_BIN}/bin
+PATH_CONFIGER ${OPT_BIN}/bin
 
 ######################################################################
 ## user's software config
 #######################################################################
 # hugo
-export HUGO_HOME=${SYS_BIN}/hugo
+export HUGO_HOME=${OPT_BIN}/hugo
 PATH_CONFIGER $HUGO_HOME
 
 # grpc & protobuf
@@ -17,15 +17,15 @@ export PKG_CONFIG_PATH=${GRPC_HOME}/lib/pkgconfig:${PB_HOME}/lib/pkgconfig:${PKG
 PATH_CONFIGER ${GRPC_HOME}/bin:${PB_HOME}/bin
 
 # maven
-export MAVEN_HOME=${SYS_BIN}/apache-maven-3.6.0
+export MAVEN_HOME=${OPT_BIN}/apache-maven-3.6.0
 PATH_CONFIGER ${MAVEN_HOME}/bin
 
 # ant
-export ANT_HOME=${SYS_BIN}/apache-ant-1.10.6
+export ANT_HOME=${OPT_BIN}/apache-ant-1.10.6
 PATH_CONFIGER $ANT_HOME/bin
 
 # gradle
-export GRADLE_HOME=${SYS_BIN}/gradle-5.4.1
+export GRADLE_HOME=${OPT_BIN}/gradle-5.4.1
 PATH_CONFIGER ${GRADLE_HOME}/bin
 
 # rbenv
@@ -50,20 +50,19 @@ unset SSH_ASKPASS
 export JENKINS_HOME=$HOME/jenkins
 
 # java
-export JAVA_HOME=${SYS_BIN}/jdk1.8.0_201
-# export JAVA_HOME=${SYS_BIN}/jdk1.7.0_80
+export JAVA_HOME=${OPT_BIN}/jdk1.8.0_201
 export JRE_HOME=${JAVA_HOME}/jre
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 PATH_CONFIGER ${JAVA_HOME}/bin
 
 # mysql
-MYSQL5725=${SYS_BIN}/mysql5.7.25
+MYSQL5725=${OPT_BIN}/mysql5.7.25
 alias MYSQL=${MYSQL5725}/bin/mysql
 alias MYSQLD=${MYSQL5725}/bin/mysqld
 alias MYSQLD_SAFE=${MYSQL5725}/bin/mysqld_safe
 
 # mariadb
-MARIA1037=${SYS_BIN}/mariadb-10.3.7
+MARIA1037=${OPT_BIN}/mariadb-10.3.7
 alias maria=${MARIA1037}/bin/mysql
 alias mariad=${MARIA1037}/bin/mysqld
 alias mariad_safe=${MARIA1037}/bin/mysqld_safe
@@ -71,8 +70,8 @@ alias maria_install_db=${MARIA1037}/scripts/mysql_install_db
 
 # KunDB 
 export MYSQL_FLAVOR="MySQL56"
-export VT_MYSQL_ROOT="${SYS_BIN}/mysql57"
-export VT_MARIA_ROOT="${SYS_BIN}/mariadb"
+export VT_MYSQL_ROOT="${OPT_BIN}/mysql57"
+export VT_MARIA_ROOT="${OPT_BIN}/mariadb"
 export kunDataRoot="${GOPATH}/vtdataroot"
 export kunHome="${GOPATH}/src/github.com/youtube/vitess"
 alias gk="[ -d ${kunHome} ] && cd ${kunHome} || echo 'no kundb src directory'"

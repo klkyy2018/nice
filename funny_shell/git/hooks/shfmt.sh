@@ -4,7 +4,7 @@ if [[ -z "$(command -v shfmt)" ]]; then
   exit 0
 fi
 
-if [[ -z ${NICE_HOME} ]]; then
+if [[ -z ${PROJECT} ]]; then
   echo "please source contribute.env first"
   exit 1
 fi
@@ -17,7 +17,7 @@ dot_shfiles=($(git diff --cached --name-only --diff-filter=ACMR | grep '.*\.sh$'
 
 normal_shfiles=($(git diff --cached --name-only --diff-filter=ACMR | grep -v '\.'))
 for file in ${normal_shfiles[@]}; do
-  first_line=$(head -1 ${NICE_HOME}/${file})
+  first_line=$(head -1 ${PROJECT}/${file})
   for pattern in ${shebang_pattern[@]}; do
     if [[ ${first_line} == ${pattern} ]]; then
       shfiles=(${shfiles[@]} ${file})
@@ -56,7 +56,7 @@ echo >&2 -n "  shfmt -i 2 -ci -s -w"
 for f in ${files}; do
   # Print " \" after the "shfmt" above and each filename (except for the last one).
   echo >&2 ' \'
-  echo >&2 -n "    ${NICE_HOME}/$f"
+  echo >&2 -n "    ${PROJECT}/$f"
 done
 echo >&2
 

@@ -1,5 +1,18 @@
+alias ls='ls --color=auto'
+alias lla="ls --color=auto -al"
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+alias fgrep='fgrep --colour=auto'
 alias c="clear"
-alias lla="ls -al"
+# confirm before overwriting something
+alias cp="cp -i"
+alias rm="rm -i"
+# human-readable sizes
+alias df='df -h'
+# show sizes in MB
+alias free='free -m'
+# dont use more, use less instead
+alias more=less
 alias zshconfig="vim ~/.zshrc"
 alias zshmac="vim ~/.zshrc.darwin"
 alias zshlinux="vim ~/.zshrc.linux"
@@ -7,7 +20,7 @@ alias zshenable="source ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias gdev="cd $DEV_HOME"
 alias ggo="cd $GO_DEV"
-alias gnice="cd $DEV_HOME/nice"
+alias gok="cd $DEV_HOME/onekeyenv"
 alias gblog="cd $BLOG"
 alias mux="tmuxinator"
 alias tailf="tail -f"
