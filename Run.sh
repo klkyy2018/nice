@@ -20,10 +20,15 @@ function get_sudo_pass() {
 
 function super() {
   cmd=$1
-  if [[ -z ${password} ]]; then
-    export password=$(get_sudo_pass)
+  userid=$(id -u $(whoami))
+  if [[ ${userid} -eq 0 ]]; then
+    ${cmd}
+  else
+    if [[ -z ${password} ]]; then
+      export password=$(get_sudo_pass)
+    fi
+    echo ${password} | sudo -S ${cmd}
   fi
-  echo ${password} | sudo -S ${cmd}
 }
 
 function mk_user_dir() {
