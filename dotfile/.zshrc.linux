@@ -76,6 +76,7 @@ export kunDataRoot="${GOPATH}/vtdataroot"
 export kunHome="${GOPATH}/src/github.com/youtube/vitess"
 alias gk="[ -d ${kunHome} ] && cd ${kunHome} || echo 'no kundb src directory'"
 alias gkd="[ -d ${kunDataRoot} ] && cd ${kunDataRoot} || echo 'no kundb data directory'"
+PATH_CONFIGER ${VT_MYSQL_ROOT}/bin
 
 # charts
 export ChartsHome="${DEV_HOME}/application-helmcharts"
