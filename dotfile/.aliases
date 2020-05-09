@@ -10,7 +10,7 @@ alias rm="rm -i"
 # human-readable sizes
 alias df='df -h'
 # show sizes in MB
-alias free='free -m'
+alias free='free -g'
 # dont use more, use less instead
 alias more=less
 alias zshconfig="vim ~/.zshrc"

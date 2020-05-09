@@ -15,3 +15,9 @@ set et
 set sta
 " 
 set pastetoggle=<F12>
+
+"""" show status
+" showmode
+set smd
+" showcmd
+set sc

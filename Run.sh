@@ -134,11 +134,11 @@ function install_go() {
 }
 
 function install_clion() {
-  install_opt_package tar CLion-2019.3.2.tar.gz
+  install_opt_package tar CLion-2019.3.5.tar.gz
 }
 
 function install_intelij() {
-  install_opt_package tar ideaIC-2019.3.1.tar.gz
+  install_opt_package tar ideaIC-2019.3.4.tar.gz
 }
 
 function install_goland() {
@@ -146,7 +146,7 @@ function install_goland() {
 }
 
 function install_pycharm() {
-  install_opt_package tar pycharm-community-2019.3.3.tar.gz
+  install_opt_package tar pycharm-community-2019.3.4.tar.gz
 }
 
 function install_docker() {
