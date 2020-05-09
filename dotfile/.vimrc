@@ -1,3 +1,13 @@
+set nocompatible
+syntax on
+set history=2020
+set tm=500
+set t_Co=256
+filetype on
+filetype plugin on
+filetype indent on
+set background=dark
+colorscheme desert
 set encoding=utf-8
 "
 set nu
@@ -21,3 +31,9 @@ set pastetoggle=<F12>
 set smd
 " showcmd
 set sc
+"
+set showmatch
+"
+set smartcase
+"
+set mouse=a
