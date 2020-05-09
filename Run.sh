@@ -300,6 +300,7 @@ function lndotfile() {
 function lnmybin() {
   cd ${MY_BIN}
   ln -sf ${DEV_HOME}/${PROJECT}/bin/myproxy
+  ln -sf ${DEV_HOME}/${PROJECT}/bin/sync_upstream
 }
 
 function new_linux() {
