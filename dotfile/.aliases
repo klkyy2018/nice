@@ -25,3 +25,7 @@ alias gok="cd $DEV_HOME/onekeyenv"
 alias gblog="cd $BLOG"
 alias mux="tmuxinator"
 alias tailf="tail -f"
+
+# kundb 
+alias pubg="mysql -h127.0.0.1 -P15307 -uvt_app -p123"
+alias privg="mysql -h127.0.0.1 -P15306 -uvt_app -p123"

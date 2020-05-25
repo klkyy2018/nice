@@ -67,4 +67,4 @@ check_repo
 check_upstream
 check_branch
 sync
-printf "${green}Succ!!!\n"
+printf "\n${green}\u2714\n"
