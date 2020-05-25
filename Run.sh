@@ -147,7 +147,7 @@ function install_intelij() {
 }
 
 function install_goland() {
-  install_opt_package tar goland-2019.3.4.tar.gz
+  install_opt_package tar goland-2020.1.2.tar.gz
 }
 
 function install_pycharm() {
@@ -210,6 +210,7 @@ function install_vscode() {
   if [[ $? -eq 0 ]]; then
     case ${INSTALL_KIT} in
       "apt-get" | "apt")
+        # ref: https://code.visualstudio.com/docs/setup/linux
         echo ${password} | curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >/tmp/packages.microsoft.gpg
         super "install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/"
         super "sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'"
