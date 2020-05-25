@@ -234,6 +234,14 @@ function install_vscode() {
   fi
 }
 
+function install_autojump() {
+  git clone git://github.com/wting/autojump.git
+  cd autojump
+  ./install.py
+  cd ..
+  rm -fr autojump
+}
+
 function install_zsh() {
   is_package_installed "zsh"
   if [[ $? -eq 0 ]]; then
@@ -241,6 +249,10 @@ function install_zsh() {
   fi
   if [[ ! -d ~/.oh-my-zsh ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --skip-chsh"
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    install_autojump
+    install_package fonts-powerline
   else
     echo "oh-my-zsh has been installed."
   fi
@@ -304,7 +316,7 @@ function lnmybin() {
 }
 
 function new_linux() {
-  install_package curl vim automake autoconf make flex bison pkg-config
+  install_package curl python vim automake autoconf make flex bison pkg-config
   install_rbenv
   install_zsh
   install_tmux
