@@ -17,9 +17,11 @@ myexit() {
 repo_path=$1
 [ -z ${repo_path} ] && repo_path=`pwd`
 [ -d $repo_path ] || myexit "First parameter is not directory"
-# default "master"
+# default "current branch"
 branch=$2
-
+if [[ -z $branch ]]; then 
+  branch=`git rev-parse --abbrev-ref HEAD`
+fi
 # checks if it's a git repo
 check_repo() {
   if [ ! -d `pwd`/.git ]; then
@@ -39,10 +41,9 @@ check_upstream() {
 # check if a branch was passed as parameter and if not it makes the master as the default branch
 check_branch() {
   if [[ $branch ]]; then
-    printf "${green}Branch to sync to is set to {$branch}\n"
+    printf "${green}Branch to sync to is set to ${yellow}${branch}${green}\n"
   else
-    printf "${yellow}Branch to sync to not supplied, using *master* as the default branch to sync to\n"
-    branch="master"
+    myexit "Branch to sync not configured"
   fi
 }
 
@@ -53,7 +54,7 @@ sync() {
   printf "${green}Fetching its updates...\n"
   git fetch upstream
   if [ $? -eq 0 ]; then
-    printf "${green}Merging updates with ${branch}\n"
+    printf "${green}Merging updates with ${yellow}${branch}${green}\n"
     git merge upstream/$branch
     git push
   else

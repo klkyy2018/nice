@@ -143,7 +143,7 @@ function install_clion() {
 }
 
 function install_intelij() {
-  install_opt_package tar ideaIC-2019.3.4.tar.gz
+  install_opt_package tar ideaIC-2020.1.1.tar.gz
 }
 
 function install_goland() {
@@ -151,7 +151,7 @@ function install_goland() {
 }
 
 function install_pycharm() {
-  install_opt_package tar pycharm-community-2019.3.4.tar.gz
+  install_opt_package tar pycharm-community-2020.1.1.tar.gz
 }
 
 function install_docker() {

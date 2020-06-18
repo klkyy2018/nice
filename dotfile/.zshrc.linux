@@ -2,6 +2,8 @@
 export OPT_BIN=/opt/${USER}
 export GOSDK=$HOME/sdk
 PATH_CONFIGER ${OPT_BIN}/bin
+# snap app
+PATH_CONFIGER /snap/bin
 
 ######################################################################
 ## user's software config
@@ -38,7 +40,7 @@ alias code="code -n"
 
 # go
 export GOPATH=${DEV_HOME}/go
-export GOROOT=${GOSDK}/go1.14.1
+export GOROOT=${GOSDK}/go1.14.4
 export GODEBUG=netdns=go
 export GOPROXY="https://goproxy.io"
 PATH_CONFIGER ${GOROOT}/bin:${GOPATH}/bin

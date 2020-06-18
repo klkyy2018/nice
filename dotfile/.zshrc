@@ -164,6 +164,7 @@ ulimit -c unlimited
 
 # user bin
 PATH_CONFIGER ${HOME}/bin
+PATH_CONFIGER ${HOME}/.local/bin
 
 case $(uname -s) in 
   "Darwin") 
@@ -175,7 +176,6 @@ case $(uname -s) in
 esac
 SOURCEIT ~/.aliases
 [[ -s ${HOME}/.autojump/etc/profile.d/autojump.sh ]] && source ${HOME}/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
 prompt_context() {
 #  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
 #    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
@@ -183,4 +183,5 @@ prompt_context() {
 }
 unset -f PATH_CONFIGER 
 unset -f SOURCEIT
+autoload -U compinit && compinit -u
 echo "✓"
