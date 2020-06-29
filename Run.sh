@@ -4,6 +4,10 @@ MY_BIN=${HOME}/bin
 OPT_BIN=/opt/${USER}
 DEV_HOME=${HOME}/dev
 GO_DEV=${DEV_HOME}/go
+CPP_DEV=${DEV_HOME}/cpp
+PY_DEV=${DEV_HOME}/py
+JAVA_DEV=${DEV_HOME}/java
+
 # all tarball should put into IMPORTANT_PATH
 IMPORTANT_PATH=${HOME}/.important
 
@@ -35,12 +39,16 @@ function mk_user_dir() {
   mkdir -p ${MY_BIN}
   mkdir -p ${DEV_HOME}
   mkdir -p ${GO_DEV}
+  mkdir -p ${CPP_DEV}
+  mkdir -p ${PY_DEV}
+  mkdir -p ${JAVA_DEV}
   mkdir -p ${IMPORTANT_PATH}
 }
 
 # sys dir need super-priviledge
 function mk_sys_dir() {
   super "mkdir -p ${OPT_BIN}"
+  super chown -R ${USER} ${OPT_BIN}
 }
 
 function file_exists() {
@@ -86,6 +94,7 @@ function install_package() {
 }
 
 # install 3rd party package
+# 3rd party package will be installed to ${OPT_BIN}, default is /opt/${USER}
 function install_opt_package() {
   install_env_check
   file_type=$1
@@ -163,7 +172,7 @@ function install_docker() {
       install_opt_package TYPE_INSTALL_KIT docker-ce-18.06.3.ce-3.el7.x86_64.rpm
       ;;
     "pacman")
-      echo "skip install docker."
+      install_package docker
       ;;
     *)
       echo "not support KIT: ${INSTALL_KIT}"
@@ -225,7 +234,7 @@ function install_vscode() {
         super "yum install code"
         ;;
       "pacmac")
-        install_package "code"
+        install_package visual-studio-code-bin
         ;;
       *)
         echo "not support KIT: ${INSTALL_KIT}"
