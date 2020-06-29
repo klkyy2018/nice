@@ -303,6 +303,7 @@ function lndotfile() {
   ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.zshrc
   ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.zshrc.darwin
   ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.zshrc.linux
+  ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.zshrc.arch
   ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.tmuxinator.zsh
   ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.aliases
   ln -sf ${DEV_HOME}/${PROJECT}/dotfile/.vimrc

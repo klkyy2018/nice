@@ -172,6 +172,12 @@ case $(uname -s) in
     ;;
   "Linux")
     SOURCEIT ~/.zshrc.linux
+    source /etc/os-release
+    case ${ID} in
+      "arch")
+        SOURCEIT ~/.zshrc.arch
+        ;;
+    esac
     ;;
 esac
 SOURCEIT ~/.aliases
