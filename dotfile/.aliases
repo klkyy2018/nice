@@ -28,4 +28,5 @@ alias tailf="tail -f"
 
 # kundb 
 alias pubg="mysql -h127.0.0.1 -P15307 -uvt_app -p123"
+alias spubg="mysql -h127.0.0.1 -P15307 -uvt_app -p123 --enable-cleartext-plugin --ssl-ca=$VTTOP/examples/local_mfed/sub_scripts/ca-cert.pem --ssl-cert=$VTTOP/examples/local_mfed/sub_scripts/kungate-client-cert.pem --ssl-key=$VTTOP/examples/local_mfed/sub_scripts/kungate-client-key.pem --ssl-mode=VERIFY_CA"
 alias privg="mysql -h127.0.0.1 -P15306 -uvt_app -p123"
