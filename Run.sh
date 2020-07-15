@@ -156,7 +156,7 @@ function install_intelij() {
 }
 
 function install_goland() {
-  install_opt_package tar goland-2020.1.2.tar.gz
+  install_opt_package tar goland-2020.1.4.tar.gz
 }
 
 function install_pycharm() {
